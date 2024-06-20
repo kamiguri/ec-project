@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (request()->is('seller*')) {
-            config(['session.cookie' => config('session.cookie_owner')]);
+            config(['session.cookie' => config('session.cookie_seller')]);
         } else {
             config(['session.cookie' => config('session.cookie')]);
         }
