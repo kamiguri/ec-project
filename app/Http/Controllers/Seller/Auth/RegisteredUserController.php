@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Seller\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Selelr;
+use App\Models\Seller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
