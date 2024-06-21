@@ -9,6 +9,16 @@ class Item extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'seller_id', // これを追加
+        'category_id',
+        'name',
+        'photo_path',
+        'description',
+        'price',
+        'stock',
+        'is_show',
+    ];
     public function seller()
     {
         return $this->belongsTo(Seller::class);
