@@ -14,7 +14,12 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         DB::table('categories')->insert([
-            'name' => 'category1',
+            [ 'name' => 'ワイヤレスイヤホン' ],
+            [ 'name' => '有線イヤホン' ],
+            [ 'name' => 'ワイヤレスヘッドホン' ],
+            [ 'name' => '有線ヘッドホン' ],
+            [ 'name' => 'ワイヤレススピーカー' ],
+            [ 'name' => '有線スピーカー' ],
         ]);
     }
 }

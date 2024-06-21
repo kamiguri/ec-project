@@ -20,12 +20,14 @@ class ItemFactory extends Factory
     {
         return [
             'seller_id' => Seller::factory(),
-            'category_id' => Category::factory(),
+            'category_id' => fake()->numberBetween(1, 6),
             'name' => fake()->word(),
-            'photo_path' => fake()->url(),
+            'photo_path' => fake()->imageUrl(),
             'description' => fake()->realText(),
             'price' => fake()->numberBetween(100, 100000),
             'stock' => fake()->numberBetween(10, 1000),
+            'created_at' =>fake()->dateTime(),
+            'updated_at' =>fake()->dateTime(),
         ];
     }
 }
