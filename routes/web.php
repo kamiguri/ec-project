@@ -19,5 +19,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [ItemController::class, 'index'])->name('index');
     Route::get('//item/{item_id}', [ItemController::class, 'show'])->name('show');
 });
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

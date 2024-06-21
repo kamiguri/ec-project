@@ -12,4 +12,9 @@ class ItemController extends Controller
         $items = Item::all();
         return view('user.index',compact('items'));
     }
+    public function show()
+    {
+        //商品詳細画面
+
+    }
 }
