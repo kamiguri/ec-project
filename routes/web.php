@@ -25,8 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/search', [ItemController::class, 'search'])->name('search');
 });
 
-Route::get("/create",[StockController::class,"create"])->name("stock.create");
-Route::post("/store",[StockController::class,"store"])->name("stock.store");
+
 
 
 require __DIR__ . '/auth.php';
