@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ItemController;
 use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\StockController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -23,5 +24,9 @@ Route::middleware('auth')->prefix("buyer")->group(function () {
     Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
     Route::post('/cart', [CartController::class, 'add'])->name('cart.add');
 });
+
+Route::get("/create",[StockController::class,"create"])->name("stock.create");
+Route::post("/store",[StockController::class,"store"])->name("stock.store");
+
 
 require __DIR__ . '/auth.php';
