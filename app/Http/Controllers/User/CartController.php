@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Redirect;
 
 class CartController extends Controller
 {
+    public function index() {
+        return view('user.cart.index');
+    }
+
     public function add(Request $request, Item $item)
     {
         // 1. 在庫チェック
