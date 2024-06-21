@@ -5,14 +5,14 @@
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __('一度アカウントを削除すると二度と復元できませんが、本当にアカウントを消しますか？後悔しても知りません！') }}
+            {{ __('アカウントを一度削除したら、二度と復元できませんが、よろしいですか？') }}
         </p>
     </header>
 
     <x-danger-button
         x-data=""
         x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-    >{{ __('アカウント削除') }}</x-danger-button>
+    >{{ __('アカウントを削除') }}</x-danger-button>
 
     <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
         <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
@@ -24,7 +24,7 @@
             </h2>
 
             <p class="mt-1 text-sm text-gray-600">
-                {{ __('一度アカウントを削除すると、二度と復元できませんが、本当に削除しますか？') }}
+                {{ __('一度アカウントを消したら、二度と復元できませんが、本当に消しますか？') }}
             </p>
 
             <div class="mt-6">
@@ -47,7 +47,7 @@
                 </x-secondary-button>
 
                 <x-danger-button class="ms-3">
-                    {{ __('アカウントの削除') }}
+                    {{ __('削除') }}
                 </x-danger-button>
             </div>
         </form>
