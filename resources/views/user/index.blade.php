@@ -11,8 +11,8 @@
                 <div class="p-6 text-gray-900">
                     <form action="/" method="get">
                         @csrf
-                        <input type="text" name="keyword" value="/">
                         <button type="submit">検索</button>
+                        <input type="text" name="keyword" value="">
                     </form>
                     @foreach ($items as $item)
                     <ul>
