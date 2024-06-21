@@ -16,7 +16,11 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+            @if (request()->is('seller*'))
+                @include('layouts.seller-navigation')
+            @else
+                @include('layouts.navigation')
+            @endif
 
             <!-- Page Heading -->
             @isset($header)
