@@ -1,12 +1,10 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Profile Information') }}
+            {{ __('プロフィール情報') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __("アカウント情報変更") }}
-        </p>
+
     </header>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
@@ -18,7 +16,8 @@
         @method('patch')
 
         <div>
-            <x-input-label for="name" :value="__('社名')" />
+            <x-input-label for="name" :value="__('名前')" />
+
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
