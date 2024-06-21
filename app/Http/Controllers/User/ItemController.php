@@ -20,7 +20,6 @@ class ItemController extends Controller
     public function show($item_id)
     {
         $item = item::find($item_id);
-        // dd($item);
         return view('user.show', compact('item'));
     }
 
@@ -46,7 +45,7 @@ class ItemController extends Controller
             $i++;
         }
         $searches = $query->get();
-        return view('/',compact('searches','items','id'));
+        return view('user.index',compact('searches','items','id'));
     }
 
 }
