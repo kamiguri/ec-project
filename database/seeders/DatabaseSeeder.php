@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Item;
+use App\Models\Order;
 use App\Models\User;
 use App\Models\Seller;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,10 +18,10 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
 
         Seller::factory()->create([
             'name' => 'Test Seller',
@@ -29,8 +30,20 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CategorySeeder::class,
+            UserSeeder::class,
         ]);
 
         Item::factory(10)->create();
+
+        Order::factory(5)
+        ->hasAttached(
+            Item::factory()->count(fake()->numberBetween(1, 3)),
+            [
+                'amount' => fake()->numberBetween(1, 5),
+                'price' => fake()->numberBetween(100, 100000),
+            ],
+        )
+        ->create();
+
     }
 }
