@@ -20,7 +20,7 @@ class ItemFactory extends Factory
     {
         return [
             'seller_id' => Seller::factory(),
-            'category_id' => Category::factory(),
+            'category_id' => fake()->numberBetween(1, 6),
             'name' => fake()->word(),
             'photo_path' => fake()->imageUrl(),
             'description' => fake()->realText(),
