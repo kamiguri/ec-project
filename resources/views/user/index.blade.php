@@ -1,0 +1,30 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <x-navigation-link title="タイトル" :itemId='1'/>
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <form action="/" method="get">
+                        @csrf
+                        <input type="text" name="keyword" value="/">
+                        <button type="submit">検索</button>
+                    </form>
+                    @foreach ($items as $item)
+                    <ul>
+                        <a href="{{route('show',['item_id' => $item->id])}}">
+                        <li>{{$item->photo_path}}</li>
+                        <li>{{$item->name}}</li>
+                        <li>在庫数：{{$item->stock}}　価格{{$item->price}}</li><br>
+                        </a>
+                    </ul>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
