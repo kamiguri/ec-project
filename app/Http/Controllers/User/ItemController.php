@@ -35,7 +35,7 @@ class ItemController extends Controller
         $keys = explode(" ",$request->keyword);
         $i=0;
         $query=Item::query();
-        $select_items = Item::all();
+        $items = Item::all();
         $query->orderBy('created_at', 'desc');
         foreach($keys as $key){
             if($i === 0){
@@ -46,8 +46,7 @@ class ItemController extends Controller
             $i++;
         }
         $searches = $query->get();
-
-        return view("index",compact("searches","select_items", "id"));
+        return view('/',compact('searches','items','id'));
     }
 
 }
