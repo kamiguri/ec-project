@@ -15,4 +15,10 @@ class Seller extends Authenticatable
         'email',
         'password',
     ];
+
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }
