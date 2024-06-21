@@ -13,7 +13,7 @@
                     <p>在庫数: {{ $item->stock }}</p>
 
                     @auth
-                        <form action="{{ route('cart.add', $item) }}" method="POST">
+                        <form action="{{ route('cart.store', $item->id) }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-primary">カートに追加</button>
                         </form>
