@@ -1,0 +1,1 @@
+ここはindexページです（seller側）
