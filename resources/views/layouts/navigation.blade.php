@@ -12,9 +12,17 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
+                        {{ __('商品一覧') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                        {{ __('マイページ') }}
+                    </x-nav-link>
+                    @auth
+                    <x-nav-link :href="route('purchase.index')" :active="request()->routeIs('purchase.index')">
+                        {{ __('注文履歴') }}
+                    </x-nav-link>
+                    @endauth
                 </div>
             </div>
 
