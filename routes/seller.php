@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Seller\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Seller\SellerItemController as SellerItemController;
 
