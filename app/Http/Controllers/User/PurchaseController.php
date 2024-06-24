@@ -23,4 +23,9 @@ class PurchaseController extends Controller
         }
         return view('user.purchase.index', compact('orders'));
     }
+
+    public function create()
+    {
+        return view('user.purchase.create');
+    }
 }
