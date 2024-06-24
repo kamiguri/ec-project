@@ -16,7 +16,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.business.edit', [
+        return view('profile.seller.edit', [
             'user' => $request->user(),
         ]);
     }

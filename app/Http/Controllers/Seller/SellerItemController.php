@@ -57,4 +57,9 @@ class SellerItemController extends Controller
     }
 
     // ...他の商品管理機能 (表示、更新、削除など) ...
+
+    public function stock_edit($id){
+        $item=Item::find($id);
+        return view("seller.stock",compact("item"));
+    }
 }
