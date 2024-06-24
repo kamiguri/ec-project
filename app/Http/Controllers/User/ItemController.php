@@ -15,7 +15,9 @@ class ItemController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $items = Item::all();
+        $query=Item::query();
+        $query->orderBy('created_at', 'desc');
+        $items = $query->get();
         return view('user.index', compact('items','user'));
     }
     public function show($item_id)
@@ -46,7 +48,6 @@ class ItemController extends Controller
         $i=0;
         $query=Item::query();
         $items = Item::all();
-        //$query->orderBy('created_at', 'desc');
         if( $keys !== null && $keys1 !== 'null'){
             foreach($keys2 as $key){
                 if($i === 0){
@@ -74,6 +75,7 @@ class ItemController extends Controller
                 $i++;
             }
         }
+        $query->orderBy('created_at', 'desc');
         $searches = $query->get();
         return view('user.index',compact('searches','items','id'));
     }
