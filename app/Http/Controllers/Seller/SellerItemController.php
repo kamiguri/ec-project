@@ -8,12 +8,16 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage; // ファイル保存に必要
+use App\Models\Seller;
 
 class SellerItemController extends Controller
 {
     public function index()
     {
-        return view("seller.items.index");
+        $sellerId = Auth::user();
+        $query = Item::query()->where('seller_id', $sellerId->id);
+        $items = $query->get();
+        return view("seller.items.index",compact('items'));
     }
     public function create()
     {
@@ -58,7 +62,13 @@ class SellerItemController extends Controller
 
     // ...他の商品管理機能 (表示、更新、削除など) ...
 
-    public function stock_edit($id){
+    public function show(Request $request) {
+        $item = Item::find($request->item_id);
+        return view("seller.show",compact('item'));
+    }
+
+    public function stock_edit($id)
+    {
         $item=Item::find($id);
         return view("seller.stock",compact("item"));
     }

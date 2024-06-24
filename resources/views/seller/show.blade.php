@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            商品一覧
+            商品詳細
         </h2>
     </x-slot>
 
@@ -14,17 +14,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-8">
                                 <div class="card">
-                                    <div class="card-header">{{ __('Seller Dashboard') }}</div>
-                                    {{-- 商品名一覧 --}}
-                                    @foreach ($items as $item)
-                                    <ul>
-                                        <a href="{{route('seller.show',['item_id' => $item->id])}}">
-                                        <li><img src="{{ asset('storage/' . $item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid"></li>
-                                        <li>{{$item->name}}</li>
-                                        <li>在庫数：{{$item->stock}}　価格{{$item->price}}</li><br>
-                                        </a>
-                                    </ul>
-                                    @endforeach
+                                    <div class="card-header">{{ __('seller側の商品詳細画面です') }}</div>
 
                                     <div class="card-body">
                                         @if (session('status'))
@@ -32,10 +22,11 @@
                                                 {{ session('status') }}
                                             </div>
                                         @endif
-
-                                        {{ __('You are logged in as Seller!') }}<br>
-
-                                        <a href="{{ route('seller.items.create') }}" class="btn btn-primary">商品登録</a>
+                                        {{-- 商品詳細 --}}
+                                        <img src="{{ asset('storage/' . $item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid">
+                                        {{$item->name}}
+                                        在庫数：{{$item->stock}}　価格{{$item->price}}<br>
+                                        {{-- <a href="{{route('seller.edit',['item_id' => $item->id])}}"></a> --}}
                                     </div>
                                 </div>
                             </div>

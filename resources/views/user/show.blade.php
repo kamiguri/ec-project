@@ -13,9 +13,25 @@
                     <p>在庫数: {{ $item->stock }}</p>
 
                     @auth
-                        <form action="{{ route('cart.add', $item) }}" method="POST">
+                        <form action="{{ route('cart.store', $item->id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-primary">カートに追加</button>
+                            <label>数量:
+                                <select name="amount">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </label>
+                            @error('amount')
+                                {{ $message }}
+                            @enderror
+
+                            @auth('web')
+                                <button type="submit" class="btn btn-primary">カートに追加</button>
+                            @else
+                                <p>Sellerアカウントでは商品の購入はできません。</p>
+                            @endauth
+
                         </form>
                     @else
                         <p>カートに追加するには<a href="{{ route('login') }}">ログイン</a>してください。</p>

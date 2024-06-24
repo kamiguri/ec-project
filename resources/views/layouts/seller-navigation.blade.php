@@ -12,9 +12,15 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('seller.dashboard')" :active="request()->routeIs('seller.dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('seller.items.index')" :active="request()->routeIs('seller.items.index')">
+                        {{ __('商品一覧') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('seller.items.create')" :active="request()->routeIs('seller.items.create')">
+                        {{ __('商品登録') }}
+                    </x-nav-link>
+                    {{-- <x-nav-link :href="route('seller.profile')" :active="request()->routeIs('profile.edit')">
+                        {{ __('プロフィール') }}
+                    </x-nav-link> --}}
                 </div>
             </div>
 
