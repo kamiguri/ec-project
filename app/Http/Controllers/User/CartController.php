@@ -68,7 +68,7 @@ class CartController extends Controller
             return redirect()->back()->with('error', '在庫が足りません');
         }
 
-        Auth::user()->cartItems()->updateExistingPivot([$item_id => ['amount' => $amount]]);
+        Auth::user()->cartItems()->updateExistingPivot($item_id, ['amount' => $amount]);
 
         return redirect()->route('cart.index')->with('success', 'カートを更新しました');
     }
