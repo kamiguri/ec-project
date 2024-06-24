@@ -22,9 +22,7 @@ class CartRequest extends FormRequest
      */
     public function rules(): array
     {
-        $itemId = $this->request->get('item_id');
-        dd($this->route('item_id'));
-        dd(Item::find($itemId));
+        $itemId = $this->route('item_id');
 
         return [
             'amount' => ['required', 'numeric','min:1', 'max:'.Item::find($itemId)->stock ],
