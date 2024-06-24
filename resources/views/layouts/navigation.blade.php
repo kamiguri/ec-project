@@ -19,6 +19,9 @@
                         {{ __('マイページ') }}
                     </x-nav-link>
                     @auth
+                    <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
+                        {{ __('カート') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('purchase.index')" :active="request()->routeIs('purchase.index')">
                         {{ __('注文履歴') }}
                     </x-nav-link>
