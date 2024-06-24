@@ -11,6 +11,11 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h1>カートの商品一覧</h1>
+                    <div>
+                        <a href="{{ route('purchase.create') }}">
+                            <button>レジに進む</button>
+                        </a>
+                    </div>
                     @error('amount')
                         {{ $message }}
                     @enderror
