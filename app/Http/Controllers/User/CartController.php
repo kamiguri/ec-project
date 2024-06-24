@@ -52,4 +52,24 @@ class CartController extends Controller
 
         return redirect()->route('cart.index');
     }
+
+    public function update(Request $request, $item_id)
+    {
+        $item = Item::find($item_id);
+        if (! $item) {
+            abort(404, '商品が見つかりませんでした。');
+        }
+
+        $amount = $request->amount;
+
+        if ($item->stock === 0) {
+            return redirect()->back()->with('error', '在庫切れです');
+        } elseif ($item->stock < $amount) {
+            return redirect()->back()->with('error', '在庫が足りません');
+        }
+
+        Auth::user()->cartItems()->updateExistingPivot([$item_id => ['amount' => $amount]]);
+
+        return redirect()->route('cart.index')->with('success', 'カートを更新しました');
+    }
 }
