@@ -44,10 +44,10 @@ class PaymentController extends Controller
             'total_price' => 10000, // テスト用の合計金額
             // ... その他必要なプロパティ
         ]);
-
+        // dd($user->email);
         // メール送信 (非同期)
         SendMailJob::dispatch($user, $order);
-        dd($user);
+        // dd($user);
 
         // return redirect()->route('index');
     }
