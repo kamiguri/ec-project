@@ -21,6 +21,9 @@ class SellerItemController extends Controller
         return view('seller.items.create', compact('categories'));
     }
 
+    public function edit(){
+
+    }
     public function store(Request $request)
     {
         // 1. バリデーション
