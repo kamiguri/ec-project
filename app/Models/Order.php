@@ -9,6 +9,14 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id', // 'id' を追加
+        'user_id',
+        'created_at',
+        'total_price',
+        // ... その他のfillableな属性
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

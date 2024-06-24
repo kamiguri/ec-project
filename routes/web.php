@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ItemController;
 use App\Http\Controllers\User\CartController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\User\PaymentController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -22,6 +22,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
     Route::post('/cart', [CartController::class, 'add'])->name('cart.add');
     Route::get('/search', [ItemController::class, 'search'])->name('search');
+
+    //メールの処理
+    Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
+    Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+    Route::get('/payment/complete', [PaymentController::class, 'complete'])->name('payment.complete');
+    Route::get('/payment/error', [PaymentController::class, 'error'])->name('payment.error');
 });
 
 require __DIR__ . '/auth.php';
