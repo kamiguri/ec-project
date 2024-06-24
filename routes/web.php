@@ -21,9 +21,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('show');
     Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
 
+    Route::get('/search', [ItemController::class, 'search'])->name('search');
+
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/{item_id}', [CartController::class, 'store'])->name('cart.store');
-    Route::get('/search', [ItemController::class, 'search'])->name('search');
+    Route::delete('/cart/{item_id}', [CartController::class, 'destroy'])->name('cart.destroy');
 });
 
 require __DIR__ . '/auth.php';
