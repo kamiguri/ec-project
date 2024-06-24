@@ -22,6 +22,9 @@
                                     @endfor
                                 </select>
                             </label>
+                            @error('amount')
+                                {{ $message }}
+                            @enderror
                             <button type="submit" class="btn btn-primary">カートに追加</button>
                         </form>
                     @else
