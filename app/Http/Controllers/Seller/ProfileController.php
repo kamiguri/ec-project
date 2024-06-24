@@ -16,25 +16,35 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.user.edit', [
-            'user' => $request->user(),
+        return view('profile.seller.edit', [
+            'user' => $request->user(), // 修正: $request->seller() から $request->user() へ
         ]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request, Seller $seller)
     {
-        $request->user()->fill($request->validated());
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Seller::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        $user = Seller::update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
-        $request->user()->save();
+        $user->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+
+        Auth::login($user);
+
+        return redirect(route('sellers.profile.edit', absolute: false));
+
     }
 
     /**
@@ -46,7 +56,7 @@ class ProfileController extends Controller
             'password' => ['required', 'current_password'],
         ]);
 
-        $user = $request->user();
+        $user = $request->user(); // 修正: $request->seller() から $request->user() へ
 
         Auth::logout();
 
