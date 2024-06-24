@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CartRequest;
 use App\Models\Item;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ class CartController extends Controller
         return view('user.cart.index');
     }
 
-    public function store(Request $request, $item_id)
+    public function store(CartRequest $request, $item_id)
     {
         $item = Item::find($item_id);
 
