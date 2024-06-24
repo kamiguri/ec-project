@@ -14,6 +14,7 @@ Route::middleware(['auth:sellers', 'verified'])->group(function () {
     Route::post('/items', [SellerItemController::class, 'store'])->name('items.store');
     Route::get('/items', [SellerItemController::class, 'index'])->name('items.index');
     // ...他のseller側の商品管理ルート...
+    Route::get('/show/{item_id}', [SellerItemController::class, 'show'])->name('show');
 });
 
 require __DIR__ . '/sellerAuth.php';
