@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Mail\OrderConfirmationEmail;
+use Illuminate\Support\Facades\Mail;
 
 class User extends Authenticatable
 {
@@ -55,4 +57,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Item::class, 'cart')
             ->withPivot('amount');
     }
+
+    // public function sendOrderConfirmationEmail(Order $order)
+    // {
+    //     // dd($order, $this->email);
+
+    //     Mail::to($this->email)->send(new OrderConfirmationEmail($order));
+    // }
 }
