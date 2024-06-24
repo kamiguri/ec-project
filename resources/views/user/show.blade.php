@@ -15,6 +15,13 @@
                     @auth
                         <form action="{{ route('cart.store', $item->id) }}" method="POST">
                             @csrf
+                            <label>数量:
+                                <select name="amount">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </label>
                             <button type="submit" class="btn btn-primary">カートに追加</button>
                         </form>
                     @else
