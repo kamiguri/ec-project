@@ -21,8 +21,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [ItemController::class, 'index'])->name('index');
     Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('show');
     Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
-    Route::post('/cart', [CartController::class, 'add'])->name('cart.add');
+
     Route::get('/search', [ItemController::class, 'search'])->name('search');
+
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/{item_id}', [CartController::class, 'store'])->name('cart.store');
+    Route::delete('/cart/{item_id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::put('/cart/{item_id}', [CartController::class, 'update'])->name('cart.update');
+
     Route::get('/purchase-history', [PurchaseController::class, 'index'])->name('purchase.index');
 
     //メールの処理

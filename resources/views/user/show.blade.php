@@ -13,8 +13,18 @@
                     <p>在庫数: {{ $item->stock }}</p>
 
                     @auth
-                        <form action="{{ route('cart.add', $item) }}" method="POST">
+                        <form action="{{ route('cart.store', $item->id) }}" method="POST">
                             @csrf
+                            <label>数量:
+                                <select name="amount">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </label>
+                            @error('amount')
+                                {{ $message }}
+                            @enderror
                             <button type="submit" class="btn btn-primary">カートに追加</button>
                         </form>
                     @else
