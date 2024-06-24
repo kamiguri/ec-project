@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class CartController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return view('user.cart.index');
     }
 
@@ -20,7 +21,7 @@ class CartController extends Controller
     {
         $item = Item::find($item_id);
 
-        if (! $item) {
+        if (!$item) {
             abort(404, '商品が見つかりませんでした。');
         }
 
@@ -39,13 +40,13 @@ class CartController extends Controller
 
         $user->cartItems()->syncWithoutDetaching([$item_id => ['amount' => $cartItemAmount]]);
 
-        return redirect()->route('items.show', $item)->with('success', 'カートに追加しました');
+        return redirect()->route('show', $item)->with('success', 'カートに追加しました');
     }
 
     public function destroy(Request $request, $item_id)
     {
         $item = Item::find($item_id);
-        if (! $item) {
+        if (!$item) {
             abort(404, '商品が見つかりませんでした。');
         }
 
@@ -57,7 +58,7 @@ class CartController extends Controller
     public function update(CartRequest $request, $item_id)
     {
         $item = Item::find($item_id);
-        if (! $item) {
+        if (!$item) {
             abort(404, '商品が見つかりませんでした。');
         }
 
