@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <x-navigation-seller-link title="タイトル"/>
+            商品詳細
         </h2>
     </x-slot>
 
