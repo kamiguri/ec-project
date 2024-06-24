@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart/{item_id}', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::put('/cart/{item_id}', [CartController::class, 'update'])->name('cart.update');
 
+    Route::get('/purchase', [PurchaseController::class, 'create'])->name('purchase.create');
     Route::get('/purchase-history', [PurchaseController::class, 'index'])->name('purchase.index');
 
     //メールの処理
