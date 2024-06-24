@@ -25,7 +25,13 @@
                             @error('amount')
                                 {{ $message }}
                             @enderror
-                            <button type="submit" class="btn btn-primary">カートに追加</button>
+
+                            @auth('web')
+                                <button type="submit" class="btn btn-primary">カートに追加</button>
+                            @else
+                                <p>Sellerアカウントでは商品の購入はできません。</p>
+                            @endauth
+
                         </form>
                     @else
                         <p>カートに追加するには<a href="{{ route('login') }}">ログイン</a>してください。</p>

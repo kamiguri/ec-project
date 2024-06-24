@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/', [ItemController::class, 'index'])->name('index');
     Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('show');
-    Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
+    // Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
 
     Route::get('/search', [ItemController::class, 'search'])->name('search');
 
