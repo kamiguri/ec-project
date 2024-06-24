@@ -19,16 +19,16 @@ class CartController extends Controller
     {
         $item = Item::find($item_id);
 
-        // 1. 在庫チェック
         if ($item->stock === 0) {
             return redirect()->back()->with('error', '在庫切れです');
         }
 
-        // 2. カートへの追加処理 (セッション or DB)
         $user = Auth::user();
 
-        $user->cartItems()->syncWithoutDetaching([$item_id => ['amount' => 1]]);
-        // ... ここにカートへの追加ロジックを実装 ...
+        $cartItem = $user->cartItems()->where('item_id', $item_id)->first();
+        $itemAmount = ($cartItem?->pivot->amount ?? 0) + 1;  // カートに追加済みの場合はamountに足す
+
+        $user->cartItems()->syncWithoutDetaching([$item_id => ['amount' => $itemAmount]]);
 
         return redirect()->route('items.show', $item)->with('success', 'カートに追加しました');
     }
