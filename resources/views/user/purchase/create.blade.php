@@ -16,7 +16,10 @@
                         </a>
                     </div>
                     <h1>注文の確認</h1>
-                    @foreach (Auth::user()->cartItems as $item)
+                    <div>
+                        合計金額: {{ $totalPrice }}
+                    </div>
+                    @foreach ($cartItems as $item)
                     <div>
                         商品名: {{ $item->name }}
                         金額: {{ $item->price }}
