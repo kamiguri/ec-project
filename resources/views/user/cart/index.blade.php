@@ -11,6 +11,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h1>カートの商品一覧</h1>
+                    @error('amount')
+                        {{ $message }}
+                    @enderror
                     @foreach (Auth::user()->cartItems as $item)
                     <div>
                         商品名: {{ $item->name }}

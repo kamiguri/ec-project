@@ -54,7 +54,7 @@ class CartController extends Controller
         return redirect()->route('cart.index');
     }
 
-    public function update(Request $request, $item_id)
+    public function update(CartRequest $request, $item_id)
     {
         $item = Item::find($item_id);
         if (! $item) {
