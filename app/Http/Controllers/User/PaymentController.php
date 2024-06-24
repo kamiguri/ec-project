@@ -38,13 +38,11 @@ class PaymentController extends Controller
         $user = Auth::user();
         // テスト用のOrderデータを作成
         $order = new Order([
-            'id' => 12345, // テスト用の注文ID
             'user_id' => $user->id,
             'created_at' => now(),
-            'total_price' => 10000, // テスト用の合計金額
-            // ... その他必要なプロパティ
         ]);
-        // dd($user->email);
+        //保存
+        $order->save();
         // メール送信 (非同期)
         SendMailJob::dispatch($user, $order);
         // dd($user);
