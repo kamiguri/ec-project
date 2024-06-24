@@ -5,6 +5,7 @@ use App\Http\Controllers\User\ItemController;
 use App\Http\Controllers\User\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\PaymentController;
+use App\Http\Controllers\User\PurchaseController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -22,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
     Route::post('/cart', [CartController::class, 'add'])->name('cart.add');
     Route::get('/search', [ItemController::class, 'search'])->name('search');
+    Route::get('/purchase-history', [PurchaseController::class, 'index'])->name('purchase.index');
 
     //メールの処理
     Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
