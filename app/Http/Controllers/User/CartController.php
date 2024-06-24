@@ -18,6 +18,11 @@ class CartController extends Controller
     public function store(Request $request, $item_id)
     {
         $item = Item::find($item_id);
+
+        if (! $item) {
+            abort(404, '商品が見つかりませんでした。');
+        }
+
         $amount = $request->amount;
 
         if ($item->stock === 0) {
@@ -34,5 +39,10 @@ class CartController extends Controller
         $user->cartItems()->syncWithoutDetaching([$item_id => ['amount' => $carItemAmount]]);
 
         return redirect()->route('items.show', $item)->with('success', 'カートに追加しました');
+    }
+
+    public function destroy(Request $request, $item_id)
+    {
+        $item = Item::find($item_id);
     }
 }
