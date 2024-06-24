@@ -26,6 +26,11 @@ class PurchaseController extends Controller
 
     public function create()
     {
-        return view('user.purchase.create');
+        $cartItems = Auth::user()->cartItems;
+        $totalPrice = 0;
+        foreach ($cartItems as $item) {
+            $totalPrice += $item->price * $item->pivot->amount;
+        }
+        return view('user.purchase.create', compact('cartItems', 'totalPrice'));
     }
 }
