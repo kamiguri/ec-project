@@ -28,4 +28,14 @@ class CartRequest extends FormRequest
             'amount' => ['required', 'numeric','min:1', 'max:'.Item::find($itemId)->stock ],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'amount.required' => '数量を入力してください',
+            'amount.numeric' => '数値で入力してください',
+            'min' => '数量は1つ以上にしてください',
+            'max' => '在庫数を超える注文はできません',
+        ];
+    }
 }
