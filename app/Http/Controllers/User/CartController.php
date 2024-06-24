@@ -34,9 +34,9 @@ class CartController extends Controller
         $user = Auth::user();
 
         $cartItem = $user->cartItems()->where('item_id', $item_id)->first();
-        $carItemAmount = ($cartItem?->pivot->amount ?? 0) + $amount;  // カートに追加済みの場合はカートのamountに足す
+        $cartItemAmount = ($cartItem?->pivot->amount ?? 0) + $amount;  // カートに追加済みの場合はカートのamountに足す
 
-        $user->cartItems()->syncWithoutDetaching([$item_id => ['amount' => $carItemAmount]]);
+        $user->cartItems()->syncWithoutDetaching([$item_id => ['amount' => $cartItemAmount]]);
 
         return redirect()->route('items.show', $item)->with('success', 'カートに追加しました');
     }
