@@ -5,6 +5,7 @@ use App\Http\Controllers\User\ItemController;
 use App\Http\Controllers\User\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\PaymentController;
+use App\Http\Controllers\User\PurchaseController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
