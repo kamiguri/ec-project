@@ -44,5 +44,12 @@ class CartController extends Controller
     public function destroy(Request $request, $item_id)
     {
         $item = Item::find($item_id);
+        if (! $item) {
+            abort(404, '商品が見つかりませんでした。');
+        }
+
+        Auth::user()->cartItems()->detach($item_id);
+
+        return redirect()->route('cart.index');
     }
 }
