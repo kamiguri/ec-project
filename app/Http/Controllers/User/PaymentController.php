@@ -83,22 +83,4 @@ class PaymentController extends Controller
 
         return redirect()->route('index');
     }
-
-    // キャンセル時の処理
-    public function cancel()
-    {
-        // ...
-    }
-
-    // 決済完了後の処理
-    public function complete()
-    {
-        // ...
-    }
-
-    // エラー時の処理
-    public function error()
-    {
-        // ...
-    }
 }

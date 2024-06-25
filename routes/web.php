@@ -36,9 +36,6 @@ Route::middleware('auth')->group(function () {
     //支払い処理
     Route::get('/payment/', [PaymentController::class, 'checkout'])->name('payment.checkout');
     Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
-    Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
-    Route::get('/payment/complete', [PaymentController::class, 'complete'])->name('payment.complete');
-    Route::get('/payment/error', [PaymentController::class, 'error'])->name('payment.error');
 });
 
 
