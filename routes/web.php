@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ItemController;
 use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\StockController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\User\PurchaseController;
@@ -37,5 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/payment/complete', [PaymentController::class, 'complete'])->name('payment.complete');
     Route::get('/payment/error', [PaymentController::class, 'error'])->name('payment.error');
 });
+
+
+
 
 require __DIR__ . '/auth.php';

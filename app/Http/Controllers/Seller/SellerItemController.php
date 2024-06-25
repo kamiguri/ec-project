@@ -25,6 +25,9 @@ class SellerItemController extends Controller
         return view('seller.items.create', compact('categories'));
     }
 
+    public function edit(){
+
+    }
     public function store(Request $request)
     {
         // 1. バリデーション
@@ -58,8 +61,24 @@ class SellerItemController extends Controller
     }
 
     // ...他の商品管理機能 (表示、更新、削除など) ...
+
     public function show(Request $request) {
         $item = Item::find($request->item_id);
         return view("seller.show",compact('item'));
+    }
+
+    public function stock_edit($id)
+    {
+        $item=Item::find($id);
+        return view("seller.stock",compact("item"));
+    }
+
+    public function stock_update(Request $request,$id)
+    {
+        $item=Item::find($id);
+        $item->stock=$request->input("stock");
+        $item->save();
+         return view("seller.stock",compact("item"));
+
     }
 }
