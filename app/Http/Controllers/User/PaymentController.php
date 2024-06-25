@@ -84,7 +84,7 @@ class PaymentController extends Controller
         SendMailJob::dispatch($user, $order);
         // dd($user);
 
-        // return redirect()->route('index');
+        return redirect()->route('index');
     }
 
     // キャンセル時の処理
