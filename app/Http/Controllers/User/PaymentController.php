@@ -10,6 +10,7 @@ use Stripe\Checkout\Session;
 use Stripe\Exception\ApiErrorException;
 use App\Models\User;
 use App\Jobs\SendMailJob;
+use App\Models\Item;
 
 class PaymentController extends Controller
 {
@@ -36,6 +37,7 @@ class PaymentController extends Controller
     public function success(Request $request)
     {
         $user = Auth::user();
+        $item = Item::all();
         // テスト用のOrderデータを作成
         $order = new Order([
             'user_id' => $user->id,
@@ -44,10 +46,19 @@ class PaymentController extends Controller
         //保存
         $order->save();
         // メール送信 (非同期)
-        SendMailJob::dispatch($user, $order);
-        // dd($user);
+        SendMailJob::dispatch(null, $order, null, $user);
 
-        // return redirect()->route('index');
+        foreach ($order->items as $item) {
+            $item->total_price = $item->pivot->price * $item->pivot->amount;
+            $seller = $item->seller;
+            if ($seller) {
+                dd($seller);
+                // 販売者へのメール送信 (非同期)
+                SendMailJob::dispatch($seller, $order, $item, null);
+            }
+        }
+
+        //return redirect()->route('index');
     }
 
     // キャンセル時の処理
