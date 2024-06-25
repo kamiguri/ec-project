@@ -28,30 +28,31 @@
 
                             @auth('users')
                                 <button type="submit" class="btn btn-primary">カートに追加</button>
-                                {{-- いいね解除フォーム --}}
-                                @if ($item->favorites()->where('user_id', auth()->id())->exists())
-                                    <form action="{{ route('items.unfavorite', $item) }}" method="POST"
-                                        style="display: inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">
-                                            <i class="fas fa-heart-broken"></i> いいね解除
-                                        </button>
-                                    </form>
-                                    @else{{-- いいねフォーム --}}
-                                    <form action="{{ route('items.favorite', $item) }}" method="POST"
-                                        style="display: inline-block;">
-                                        @csrf
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fas fa-heart"></i> いいね
-                                        </button>
-                                    </form>
-                                @endif
                             @else
                                 <p>Sellerアカウントでは商品の購入はできません。</p>
                             @endauth
-
                         </form>
+                        @auth('users')
+                            {{-- いいね解除フォーム --}}
+                            @if ($item->favorites()->where('user_id', auth()->id())->exists())
+                                <form action="{{ route('items.unfavorite', $item->id) }}" method="POST"
+                                    style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fas fa-heart-broken"></i> いいね解除
+                                    </button>
+                                </form>
+                                @else{{-- いいねフォーム --}}
+                                <form action="{{ route('items.favorite', $item->id) }}" method="POST"
+                                    style="display: inline-block;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-heart"></i> いいね
+                                    </button>
+                                </form>
+                            @endif
+                        @endauth
                     @else
                         <p>カートに追加するには<a href="{{ route('login') }}">ログイン</a>してください。</p>
                     @endauth
