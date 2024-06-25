@@ -22,38 +22,35 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        // User::factory(10)->create();
+        User::factory(10)->create();
 
         $this->call([
             CategorySeeder::class,
         ]);
 
-        $items = Item::factory(10)
-        ->hasAttached(
-            Order::factory()->count(5),
-            [
-                ['price' => fake()->numberBetween(100, 100000)],
-                ['amount' => fake()->numberBetween(1, 5)],
-            ]
-            );
+        $items = Item::factory(10);
 
         $seller = Seller::factory()
-            ->has($items)
-            ->create([
-                'name' => 'Test Seller',
-                'email' => 'seller@example.com',
-            ]);
+        ->create([
+            'name' => 'Test Seller',
+            'email' => 'seller@example.com',
+        ]);
 
-        // Order::factory(5)
-        // ->hasAttached(
-        //     $items->state(function (array $attributes, Item $item) {
-        //             return [
-        //                 ['price' => $item->price],
-        //                 ['amount' => fake()->numberBetween(1, 5)],
-        //             ];
-        //         })
-        // )
-        // ->create();
+        // Order::factory()
+        //     ->hasAttached($items, [
+        //         ['amount' => 1, 'price' => 1]
+        //     ])
+        //     ->create();
+
+        Order::factory(5)
+        ->hasAttached(
+            Item::factory()->count(fake()->numberBetween(1, 3)),
+            [
+                'amount' => fake()->numberBetween(1, 5),
+                'price' => fake()->numberBetween(100, 100000),
+            ],
+        )
+        ->create();
 
     }
 }
