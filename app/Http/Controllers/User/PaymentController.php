@@ -74,17 +74,7 @@ class PaymentController extends Controller
             DB::rollback();
         }
 
-        $user = Auth::user();
-        // テスト用のOrderデータを作成
-        $order = new Order([
-            'user_id' => $user->id,
-            'created_at' => now(),
-        ]);
-        //保存
-        $order->save();
-        // メール送信 (非同期)
         SendMailJob::dispatch($user, $order);
-        // dd($user);
 
         return redirect()->route('index');
     }
