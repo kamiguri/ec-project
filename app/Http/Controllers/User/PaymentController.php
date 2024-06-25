@@ -66,6 +66,8 @@ class PaymentController extends Controller
                 $item->stock -= $item->pivot->amount;
                 $item->save();
             }
+            // カートから商品を削除
+            $user->cartItems()->detach();
 
             DB::commit();
         } catch(Exception $exception){
