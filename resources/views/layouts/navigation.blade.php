@@ -25,6 +25,9 @@
                     <x-nav-link :href="route('purchase.index')" :active="request()->routeIs('purchase.index')">
                         {{ __('注文履歴') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('favorite.index')" :active="request()->routeIs('favorite.index')">
+                        {{ __('お気に入り') }}
+                    </x-nav-link>
                     @endauth
                 </div>
             </div>

@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Item;
 use App\Models\Category;
+use App\Models\Favorite;
+
+use function Laravel\Prompts\form;
 
 class ItemController extends Controller
 {

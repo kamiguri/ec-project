@@ -35,8 +35,9 @@
                         <a href="{{route('show',['item_id' => $item->id])}}">
                         <li><img src="{{ asset('storage/' . $item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid"></li>
                         <li>{{$item->name}}</li>
-                        <li>在庫数：{{$item->stock}}　価格{{$item->price}}</li><br>
+                        <li>在庫数：{{$item->stock}}　価格{{$item->price}}</li>
                         </a>
+                        <br>
                     </ul>
                     @endforeach
                     @else
