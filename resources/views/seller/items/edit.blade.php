@@ -1,6 +1,6 @@
 <div class="container">
     <h1>商品編集</h1>
-    <form action="/seller/item/{{$item->id}}/edit" method="POST" enctype="multipart/form-data">
+    <form action="/seller/item/{{$item->id}}/edit" method="post" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
@@ -13,7 +13,7 @@
         </div>
         <div class="form-group">
             <label for="description">商品説明</label>
-            <input type="text" class="form-control" id="description" name="description" value="{{old("description",$item->description)}}">
+            <textarea class="form-control" id="description" name="description">{{old("description",$item->description)}}</textarea>
         </div>
         <div class="form-group">
             <label for="price">価格</label>
@@ -25,8 +25,14 @@
         </div>
         <div class="form-group">
             <label for="category">カテゴリー</label>
-
+            <select class="form-control" id="category" name="category_id" required>
+                <option value="">選択してください</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
         </div>
-        <a href="{{ route('seller.show',$item->id) }}">商品詳細へ</a>
+        <a href="{{ route('seller.show',$item->id) }}">戻る</a>
+        <a href="{{route("seller.update",$item->id)}}">更新</a>
     </form>
 </div>

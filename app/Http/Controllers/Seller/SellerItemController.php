@@ -25,11 +25,6 @@ class SellerItemController extends Controller
         return view('seller.items.create', compact('categories'));
     }
 
-    public function edit($id){
-        $item=Item::find($id);
-        return view("seller.items.edit",compact("item"));
-    }
-
     public function store(Request $request)
     {
         // 1. バリデーション
@@ -67,6 +62,24 @@ class SellerItemController extends Controller
     public function show(Request $request) {
         $item = Item::find($request->item_id);
         return view("seller.show",compact('item'));
+    }
+
+    public function edit($id){
+        $item=Item::find($id);
+        $categories = Category::all();
+        return view("seller.items.edit",compact("item","categories"));
+    }
+
+    public function update(Request $request,$id){
+
+        $item=Item::find($id);
+        $item->name=$request->input("name");
+        $item->description=$request->input("description");
+        $item->price=$request->input("price");
+        $item->categories_id=$request->input("categories_id");
+        dd($item);
+        $item->save();
+        return view("seller.items.edit",compact("item"));
     }
 
     public function stock_edit($id)
