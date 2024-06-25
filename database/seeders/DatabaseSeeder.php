@@ -36,12 +36,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'seller@example.com',
         ]);
 
-        // Order::factory()
-        //     ->hasAttached($items, [
-        //         ['amount' => 1, 'price' => 1]
-        //     ])
-        //     ->create();
-
         Order::factory(5)
         ->hasAttached(
             Item::factory()->count(fake()->numberBetween(1, 3)),
