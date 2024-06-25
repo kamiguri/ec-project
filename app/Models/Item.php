@@ -33,4 +33,10 @@ class Item extends Model
     {
         return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id');
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_items')
+            ->withPivot('amount', 'price');
+    }
 }
