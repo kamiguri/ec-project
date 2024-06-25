@@ -26,6 +26,11 @@
                         数量: {{ $item->pivot->amount }}
                     </div>
                     @endforeach
+                    <div>
+                        <a href="{{ route('payment.checkout') }}">
+                            <button>支払いに進む</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
