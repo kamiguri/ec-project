@@ -19,7 +19,7 @@ class OrderComesInConfirmationEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($order, $item, $seller)
+    public function __construct($seller, $order, $item)
     {
         $this->order = $order;
         $this->item = $item;
@@ -58,15 +58,20 @@ class OrderComesInConfirmationEmail extends Mailable
 
     public function build()
     {
-        \Log::info('Building mail...');
+        \Log::info('Building mail...seller');
+        \Log::info('Order Items:', ['items' => $this->order]);
+        \Log::info('Item ID:', ['itemId' => $this->item->id]);
+        \Log::info('Seller ID:', ['seller_id' => $this->seller->id]);
+        // \Log::info('Order Items:', ['items' => $this->order->items()->get()->toArray()]);
+        // \Log::info('Item ID:', ['itemId' => $this->item->id]);
 
-        return $this->view('emails.orders.confirmation_seller')
-            ->with([
-                'orderId' => $this->order->id,
-                'itemName' => $this->item->name,
-                'itemPrice' => $this->item->pivot ? $this->item->pivot->price : null, // null チェックを追加
-                'itemAmount' => $this->item->pivot ? $this->item->pivot->amount : null, // null チェックを追加
-            ]);
+        return $this->view('emails.orders.confirmation_seller');
+        // ->with([
+        //     'orderId' => $this->order->id,
+        //     'itemName' => $this->item->name,
+        //     'itemPrice' => $this->item->pivot ? $this->item->pivot->price : null, // null チェックを追加
+        //     'itemAmount' => $this->item->pivot ? $this->item->pivot->amount : null, // null チェックを追加
+        // ]);
         // return $this->subject('注文が入りました')
         //     ->view('emails.orders.confirmation_seller');
     }
