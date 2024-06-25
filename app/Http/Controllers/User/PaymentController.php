@@ -13,24 +13,38 @@ use App\Jobs\SendMailJob;
 
 class PaymentController extends Controller
 {
-    public function createCheckoutSession(Request $request)
+    public function checkout(Request $request)
     {
-        // 決済セッションを作成するための Stripe API を呼び出す
-        $stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
-        try {
-            $session = $stripe->checkout->sessions->create([
-                // 決済に必要なパラメータを設定
-                'success_url' => route('payment.success') . '?session_id={CHECKOUT_SESSION_ID}',
-                'cancel_url' => route('payment.cancel'),
-                // ...
-            ]);
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
-            // セッション ID を返却
-            return response()->json(['sessionId' => $session->id]);
-        } catch (ApiErrorException $e) {
-            // エラー処理
-            return response()->json(['error' => $e->getMessage()], 500);
+        $publicKey = env('STRIPE_PUBLIC_KEY');
+
+        $cartItems = Auth::user()->cartItems;
+        $lineItems = [];
+        foreach ($cartItems as $item) {
+            $lineItems[] = [
+                'price_data' => [
+                    'product_data' => [
+                        'name' => $item->name,
+                        'description' => $item->description,
+                    ],
+                    'currency' => 'jpy',
+                    'unit_amount' => $item->price,
+                ],
+                'quantity' => $item->pivot->amount,
+            ];
         }
+
+        $checkout_session = \Stripe\Checkout\Session::create([
+            'line_items' => [$lineItems],
+            'payment_method_types' => ['card'],
+            'mode' => 'payment',
+            'success_url' => route('payment.success'),
+            'cancel_url' => route('payment.cancel'),
+        ]);
+
+        return view('user.purchase.checkout',
+        compact('checkout_session', 'publicKey'));
     }
 
     public function success(Request $request)
