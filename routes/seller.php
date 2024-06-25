@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Seller\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Seller\SellerItemController as SellerItemController;
 use App\Http\Controllers\User\ItemController;
@@ -14,10 +14,24 @@ Route::middleware(['auth:sellers', 'verified'])->group(function () {
     Route::get('/items/create', [SellerItemController::class, 'create'])->name('items.create');
     Route::post('/items', [SellerItemController::class, 'store'])->name('items.store');
     Route::get('/items', [SellerItemController::class, 'index'])->name('items.index');
+
     // ...他のseller側の商品管理ルート...
     Route::get('/show/{item_id}', [SellerItemController::class, 'show'])->name('show');
+    Route::get("/item/{item_id}/stock",[SellerItemController::class,"stock_edit"])->name("seller.stock");
+    Route::post("/item/{item_id}/stock",[SellerItemController::class,"stock_update"])->name("seller.stock");
     //item詳細画面
     Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('show');
+
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
+
+    // ...他のseller側の商品管理ルート...
+
+
+
 
 require __DIR__ . '/sellerAuth.php';

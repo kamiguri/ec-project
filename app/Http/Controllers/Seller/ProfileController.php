@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Seller;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,8 +17,8 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.user.edit', [
-            'user' => $request->user(),
+        return view('profile.seller.edit', [
+            'user' => $request->user(), // 修正: $request->seller() から $request->user() へ
         ]);
     }
 
@@ -34,7 +35,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('seller.profile.edit')->with('status', 'profile-updated');
     }
 
     /**
@@ -46,7 +47,7 @@ class ProfileController extends Controller
             'password' => ['required', 'current_password'],
         ]);
 
-        $user = $request->user();
+        $user = $request->user(); // 修正: $request->seller() から $request->user() へ
 
         Auth::logout();
 
