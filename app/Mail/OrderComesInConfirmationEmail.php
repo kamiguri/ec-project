@@ -58,16 +58,16 @@ class OrderComesInConfirmationEmail extends Mailable
 
     public function build()
     {
-        \Log::info('Building mail...'); // この行を追加
+        \Log::info('Building mail...');
+
         return $this->view('emails.orders.confirmation_seller')
-        ->with([
-            'orderId' => $this->order->id,
-            'itemName' => $this->item->name,
-            'itemPrice' => $this->item->pivot->price,
-            'itemAmount' => $this->item->pivot->amount,
-        ]);
+            ->with([
+                'orderId' => $this->order->id,
+                'itemName' => $this->item->name,
+                'itemPrice' => $this->item->pivot ? $this->item->pivot->price : null, // null チェックを追加
+                'itemAmount' => $this->item->pivot ? $this->item->pivot->amount : null, // null チェックを追加
+            ]);
         // return $this->subject('注文が入りました')
         //     ->view('emails.orders.confirmation_seller');
     }
-
 }
