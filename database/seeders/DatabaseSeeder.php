@@ -16,17 +16,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            CategorySeeder::class,
+        ]);
 
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
 
-        User::factory(10)->create();
-
-        $this->call([
-            CategorySeeder::class,
-        ]);
+        $users = User::factory(20)->create();
 
         $seller = Seller::factory()
             ->create([
@@ -34,14 +33,18 @@ class DatabaseSeeder extends Seeder
                 'email' => 'seller@example.com',
             ]);
 
-        $items = Item::factory(10)
-            ->hasAttached(Order::factory(5), function($item) {
-                return [
-                    'amount' => fake()->numberBetween(1, 5),
-                    'price' => $item->price
-                ];
-            })
-            ->for($seller)
-            ->create();
+        $items = Item::factory(30)->for($seller)->create();
+
+        Order::factory(100)
+            ->recycle($users)
+            ->create()
+            ->each(function ($order) use ($items) {
+                $itemIdsToAttach = $items->random(rand(1, 5))->pluck('id')->toArray();
+                foreach ($itemIdsToAttach as $id) {
+                    $order->items()->attach($id, [
+                        'amount' => fake()->numberBetween(1, 5), 'price' => $items->find($id)->price
+                    ]);
+                }
+            });
     }
 }
