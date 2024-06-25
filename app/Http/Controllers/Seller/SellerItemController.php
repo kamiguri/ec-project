@@ -72,4 +72,13 @@ class SellerItemController extends Controller
         $item=Item::find($id);
         return view("seller.stock",compact("item"));
     }
+
+    public function stock_update(Request $request,$id)
+    {
+        $item=Item::find($id);
+        $item->stock=$request->input("stock");
+        $item->save();
+         return view("seller.stock",compact("item"));
+
+    }
 }
