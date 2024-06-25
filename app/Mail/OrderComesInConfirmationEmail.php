@@ -8,20 +8,22 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Order;
-use App\Models\Seller;
 
-use Illuminate\Support\Facades\Log;
-
-class OrderConfirmationEmail extends Mailable implements ShouldQueue
+class OrderComesInConfirmationEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $order;
-
-    public function __construct(Order $order)
+    public $item;
+    public $seller;
+    /**
+     * Create a new message instance.
+     */
+    public function __construct($order, $item, $seller)
     {
         $this->order = $order;
+        $this->item = $item;
+        $this->seller = $seller;
     }
 
     /**
@@ -30,7 +32,7 @@ class OrderConfirmationEmail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Confirmation Email',
+            subject: 'Order Comes In Confirmation Email',
         );
     }
 
@@ -40,7 +42,7 @@ class OrderConfirmationEmail extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            view: 'emails.orders.confirmation',
+            view: 'emails.orders.confirmation_seller',
         );
     }
 
@@ -57,8 +59,15 @@ class OrderConfirmationEmail extends Mailable implements ShouldQueue
     public function build()
     {
         \Log::info('Building mail...'); // この行を追加
-
-        return $this->subject('ご注文ありがとうございます')
-            ->view('emails.orders.confirmation');
+        return $this->view('emails.orders.confirmation_seller')
+        ->with([
+            'orderId' => $this->order->id,
+            'itemName' => $this->item->name,
+            'itemPrice' => $this->item->pivot->price,
+            'itemAmount' => $this->item->pivot->amount,
+        ]);
+        // return $this->subject('注文が入りました')
+        //     ->view('emails.orders.confirmation_seller');
     }
+
 }
