@@ -49,6 +49,30 @@ class PaymentController extends Controller
 
     public function success(Request $request)
     {
+        DB::beginTransaction();
+        try {
+            $user = User::user();
+
+            // order作成
+            $order = new Order();
+            $user->save($order);
+
+            $items = $user->cartItems;
+            foreach ($items as $item) {
+                // orderに商品追加
+                $order->items()->attach(
+                    $item->id, ['price' => $item->price, 'amount' => $item->pivot->amount]
+                );
+                // 商品在庫を減らす
+                $item->stock -= $item->pivot->amount;
+                $item->save();
+            }
+
+            DB::commit();
+        } catch(Exception $exception){
+            DB::rollback();
+        }
+
         $user = Auth::user();
         // テスト用のOrderデータを作成
         $order = new Order([
