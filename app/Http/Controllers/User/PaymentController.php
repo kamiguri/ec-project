@@ -14,13 +14,14 @@ class PaymentController extends Controller
 {
     public function checkout(Request $request)
     {
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-
-        $publicKey = env('STRIPE_PUBLIC_KEY');
-
         $cartItems = Auth::user()->cartItems;
         $lineItems = [];
         foreach ($cartItems as $item) {
+
+            if ($item->pivot->amount > $item->stock) {
+                return redirect()->route('cart.index');
+            }
+
             $lineItems[] = [
                 'price_data' => [
                     'product_data' => [
@@ -33,6 +34,10 @@ class PaymentController extends Controller
                 'quantity' => $item->pivot->amount,
             ];
         }
+
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+        $publicKey = env('STRIPE_PUBLIC_KEY');
 
         $checkout_session = \Stripe\Checkout\Session::create([
             'line_items' => [$lineItems],
