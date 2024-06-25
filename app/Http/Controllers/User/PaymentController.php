@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
-use Stripe\Checkout\Session;
-use Stripe\Exception\ApiErrorException;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Jobs\SendMailJob;
 
@@ -51,11 +50,11 @@ class PaymentController extends Controller
     {
         DB::beginTransaction();
         try {
-            $user = User::user();
+            $user = Auth::user();
 
             // order作成
             $order = new Order();
-            $user->save($order);
+            $user->orders()->save($order);
 
             $items = $user->cartItems;
             foreach ($items as $item) {
