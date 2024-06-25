@@ -82,4 +82,35 @@ class ItemController extends Controller
         $searches = $query->get();
         return view('user.index', compact('searches', 'items', 'id'));
     }
+
+    //お気に入り機能の関数
+    public function favorite(Request $request, Item $item)
+    {
+        dd($request);
+
+        // 既にいいね済みの場合は処理を行わない
+        if ($request->user()->favorites()->where('item_id', $item->id)->exists()) {
+            return back()->with('info', '既にいいね済みです。');
+        }
+
+        // データベースにいいねを保存
+        $request->user()->favorites()->attach($item->id);
+
+        return back()->with('success', 'お気に入りに追加しました。');
+    }
+
+    public function unfavorite(Request $request, Item $item)
+    {
+        dd($request);
+
+        // いいねしていない場合は処理を行わない
+        if (!$request->user()->favorites()->where('item_id', $item->id)->exists()) {
+            return back()->with('info', 'いいねされていません。');
+        }
+
+        // データベースからいいねを削除
+        $request->user()->favorites()->detach($item->id);
+
+        return back()->with('success', 'お気に入りから削除しました。');
+    }
 }

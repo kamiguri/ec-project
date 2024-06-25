@@ -22,6 +22,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('show');
     // Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
 
+    //商品のお気に入り機能
+    Route::post('/items/{item_id}/favorite', [ItemController::class, 'favorite'])->name('items.favorite');
+    Route::delete('/items/{item_id}/unfavorite', [ItemController::class, 'unfavorite'])->name('items.unfavorite');
+
     Route::get('/search', [ItemController::class, 'search'])->name('search');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
