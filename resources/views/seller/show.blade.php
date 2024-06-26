@@ -24,8 +24,11 @@
                                         {{-- 商品詳細 --}}
                                         <img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid" style="width: 150px; height: 150px;">
                                         {{$item->name}}
-                                        在庫数：{{$item->stock}}　価格{{$item->price}}<br>
+                                        在庫数：{{$item->stock}}　価格{{$item->price}}
+                                        {{$stock_text}}
+                                        <br>
                                         <a href="{{route('seller.edit',['item_id' => $item->id])}}">編集</a>
+                                        <a href="{{route('seller.stock',['item_id' => $item->id])}}">在庫登録</a>
                                     </div>
                                 </div>
                             </div>

@@ -61,7 +61,13 @@ class SellerItemController extends Controller
 
     public function show(Request $request) {
         $item = Item::find($request->item_id);
-        return view("seller.show",compact('item'));
+        $stock_text="";
+        if ($item->is_show === 1 && $item->stock > 0){
+            $stock_text = "現在は表示中です！";
+        }else{
+            $stock_text = "現在は非表示です！";
+        }
+        return view("seller.show",compact('item','stock_text'));
     }
 
     public function edit($id){
