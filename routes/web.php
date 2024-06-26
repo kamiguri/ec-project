@@ -35,12 +35,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart/{item_id}', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::put('/cart/{item_id}', [CartController::class, 'update'])->name('cart.update');
 
-    Route::get('/purchase', [PurchaseController::class, 'create'])->name('purchase.create');
     Route::get('/purchase-history', [PurchaseController::class, 'index'])->name('purchase.index');
 
-    //支払い処理
-    Route::get('/payment/', [PaymentController::class, 'checkout'])->name('payment.checkout');
+    //メールの処理
     Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
+    Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+    Route::get('/payment/complete', [PaymentController::class, 'complete'])->name('payment.complete');
+    Route::get('/payment/error', [PaymentController::class, 'error'])->name('payment.error');
 });
 
 
