@@ -58,10 +58,14 @@ class User extends Authenticatable
             ->withPivot('amount');
     }
 
-    // public function sendOrderConfirmationEmail(Order $order)
-    // {
-    //     // dd($order, $this->email);
+    public function favorites()
+    {
+        return $this->belongsToMany(Item::class, 'favorites', 'user_id', 'item_id');
+    }
 
-    //     Mail::to($this->email)->send(new OrderConfirmationEmail($order));
-    // }
+    // カートのリレーションを追加
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

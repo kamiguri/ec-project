@@ -1,8 +1,6 @@
-<h1>ご注文ありがとうございます</h1>
-<p>{{ $order->user->name }}様</p>
-<p>この度は、{{ config('app.name') }}をご利用いただき、誠にありがとうございます。</p>
-
-<p>ご注文内容は以下の通りです。</p>
+<h1>{{ $order->items[0]->seller->name }}様</h1>
+<h2>新規注文のお知らせ</h2>
+<p>{{ $order->user->name }}様からご注文がありました。</p>
 
 <table>
     <thead>
@@ -25,4 +23,4 @@
 
 <p>合計金額: {{ $order->items->sum('pivot.price') }}円</p>
 
-<p>今後とも、{{ config('app.name') }}をよろしくお願い申し上げます。</p>
+<p>詳細は管理画面をご確認ください。</p>

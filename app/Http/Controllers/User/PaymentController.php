@@ -9,6 +9,11 @@ use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Jobs\SendMailJob;
+use App\Models\Item;
+use App\Models\Seller;
+use App\Models\OrderItem;
+use App\Jobs\SendSellerOrderConfirmationEmail;
+use App\Jobs\SendUserOrderConfirmationEmail;
 
 class PaymentController extends Controller
 {
@@ -79,8 +84,8 @@ class PaymentController extends Controller
             DB::rollback();
         }
 
-        SendMailJob::dispatch($user, $order);
-
+        SendUserOrderConfirmationEmail::dispatch($order);
+        SendSellerOrderConfirmationEmail::dispatch($order, $user);
         return redirect()->route('index');
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\User\StockController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\User\PurchaseController;
+use App\Http\Controllers\User\FavoriteController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -23,6 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('show');
     // Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
 
+    //商品のお気に入り機能
+    Route::post('/items/{item_id}/favorite', [ItemController::class, 'favorite'])->name('items.favorite');
+    Route::delete('/items/{item_id}/unfavorite', [ItemController::class, 'unfavorite'])->name('items.unfavorite');
+    Route::get('/favorite', [FavoriteController::class, 'index'])->name('favorite.index');
     Route::get('/search', [ItemController::class, 'search'])->name('search');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');

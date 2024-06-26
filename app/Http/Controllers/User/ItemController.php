@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Item;
 use App\Models\Category;
+use App\Models\Favorite;
+
+use function Laravel\Prompts\form;
 
 class ItemController extends Controller
 {
@@ -81,5 +84,35 @@ class ItemController extends Controller
         $query->orderBy('created_at', 'desc');
         $searches = $query->get();
         return view('user.index', compact('searches', 'items', 'id'));
+    }
+
+    //お気に入り機能の関数
+    public function favorite(Request $request, $item_id)
+    {
+        // dd($request, $item_id);
+
+        // 既にいいね済みの場合は処理を行わない
+        if ($request->user()->favorites()->where('item_id', $item_id)->exists()) {
+            return back()->with('info', '既にいいね済みです。');
+        }
+
+        // データベースにいいねを保存
+        $request->user()->favorites()->attach($item_id);
+
+        return back()->with('success', 'お気に入りに追加しました。');
+    }
+
+    public function unfavorite(Request $request, $item_id)
+    {
+
+        // いいねしていない場合は処理を行わない
+        if (!$request->user()->favorites()->where('item_id', $item_id)->exists()) {
+            return back()->with('info', 'いいねされていません。');
+        }
+
+        // データベースからいいねを削除
+        $request->user()->favorites()->detach($item_id);
+
+        return back()->with('success', 'お気に入りから削除しました。');
     }
 }
