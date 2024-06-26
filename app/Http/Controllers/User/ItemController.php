@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Favorite;
-
+use App\Models\Comment;
 use function Laravel\Prompts\form;
 
 class ItemController extends Controller
@@ -26,8 +26,27 @@ class ItemController extends Controller
     }
     public function show($item_id)
     {
-        $item = item::find($item_id);
+        // $item = item::find($item_id);
+        // return view('user.show', compact('item'));
+        $item = Item::with('comments.user')->find($item_id);
         return view('user.show', compact('item'));
+    }
+    //コメント登録メソッド
+    public function storeComment(Request $request, $item_id)
+    {
+        $request->validate([
+            'content' => 'required|string|max:255',
+            'rating' => 'required|integer|min:1|max:10',
+        ]);
+
+        $comment = new Comment();
+        $comment->user_id = Auth::id();
+        $comment->item_id = $item_id;
+        $comment->content = $request->input('content');
+        $comment->rating = $request->input('rating');
+        $comment->save();
+
+        return redirect()->back()->with('success', 'コメントを投稿しました。');
     }
 
     public function search(Request $request)
