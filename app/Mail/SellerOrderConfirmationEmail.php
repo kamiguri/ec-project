@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderConfirmationEmail extends Mailable
+class SellerOrderConfirmationEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -23,14 +23,14 @@ class OrderConfirmationEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'ご注文ありがとうございます',
+            subject: '新規注文のお知らせ',
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            view: 'emails.orders.confirmation', // メールテンプレートのパス
+            view: 'emails.orders.confirmation_seller', // メールテンプレートのパス
         );
     }
 

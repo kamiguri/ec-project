@@ -13,6 +13,8 @@ use App\Jobs\SendMailJob;
 use App\Models\Item;
 use App\Models\Seller;
 use App\Models\OrderItem;
+use App\Jobs\SendSellerOrderConfirmationEmail;
+use App\Jobs\SendUserOrderConfirmationEmail;
 
 class PaymentController extends Controller
 {
@@ -59,13 +61,10 @@ class PaymentController extends Controller
         ]);
         $orderItem->save();
 
-        // Order と Item のリレーションを作成し、pivot 情報を設定
-        // $order->items()->attach($item->id, ['price' => $item->price, 'amount' => 1]); // amount は仮に 1 としています
-
-        // $order->save(); // attach() メソッドの後にも save() を実行する
-
         // SendMailJob をディスパッチ
-        SendMailJob::dispatch($seller, $order, $item, $user);
+        // Jobのディスパッチ
+        SendUserOrderConfirmationEmail::dispatch($order);
+        SendSellerOrderConfirmationEmail::dispatch($order, $user);
         //return redirect()->route('index');
     }
 
