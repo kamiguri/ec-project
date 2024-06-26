@@ -13,8 +13,6 @@ class PurchaseController extends Controller
     public function index(){
         //現在のユーザーを取得
         $user = Auth::user();
-        // $query=Item::query();
-        // $query->orderBy('created_at', 'desc');
 
         //ユーザーの注文とそれに関連するアイテムを取得
         $orders = $user->orders()
@@ -46,4 +44,6 @@ class PurchaseController extends Controller
 {
 
 }
+
+
 }
