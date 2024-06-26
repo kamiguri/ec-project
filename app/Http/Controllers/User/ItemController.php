@@ -19,9 +19,10 @@ class ItemController extends Controller
     {
         $user = Auth::user();
         $query = Item::query();
+        $categories = Category::all();
         $query->orderBy('created_at', 'desc');
         $items = $query->get();
-        return view('user.index', compact('items', 'user'));
+        return view('user.index', compact('items', 'user', 'categories'));
     }
     public function show($item_id)
     {
@@ -35,6 +36,7 @@ class ItemController extends Controller
         $id = 0;
         $key_count = 0;
         $id = Auth::id();
+        $categories = Category::all();
         if ($id) {
             $user = Auth::user()->name;
         }
@@ -83,7 +85,7 @@ class ItemController extends Controller
         }
         $query->orderBy('created_at', 'desc');
         $searches = $query->get();
-        return view('user.index', compact('searches', 'items', 'id'));
+        return view('user.index', compact('searches', 'items', 'id', 'categories'));
     }
 
     //お気に入り機能の関数

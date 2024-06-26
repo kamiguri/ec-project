@@ -62,4 +62,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Item::class, 'favorites', 'user_id', 'item_id');
     }
+
+    // カートのリレーションを追加
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

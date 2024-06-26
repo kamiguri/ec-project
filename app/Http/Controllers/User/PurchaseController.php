@@ -23,4 +23,17 @@ class PurchaseController extends Controller
         }
         return view('user.purchase.index', compact('orders'));
     }
+
+    public function create()
+    {
+        $cartItems = Auth::user()->cartItems;
+        $totalPrice = 0;
+        foreach ($cartItems as $item) {
+            if ($item->pivot->amount > $item->stock) {
+                return redirect()->route('cart.index');
+            }
+            $totalPrice += $item->price * $item->pivot->amount;
+        }
+        return view('user.purchase.create', compact('cartItems', 'totalPrice'));
+    }
 }

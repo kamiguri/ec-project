@@ -39,4 +39,16 @@ class Item extends Model
         return $this->belongsToMany(Order::class, 'order_items')
             ->withPivot('amount', 'price');
     }
+
+    // カートに追加したユーザーとのリレーション
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    // いいねのリレーション
+    public function usersWhoLiked()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id');
+    }
 }

@@ -23,7 +23,7 @@
                                             </div>
                                         @endif
                                         {{-- 商品詳細 --}}
-                                        <img src="{{ asset('storage/' . $item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid">
+                                        <img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid">
                                         {{$item->name}}
                                         在庫数：{{$item->stock}}　価格{{$item->price}}<br>
                                         {{-- <a href="{{route('seller.edit',['item_id' => $item->id])}}"></a> --}}
