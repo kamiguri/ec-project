@@ -11,6 +11,10 @@ use Stripe\Exception\ApiErrorException;
 use App\Models\User;
 use App\Jobs\SendMailJob;
 use App\Models\Item;
+use App\Models\Seller;
+use App\Models\OrderItem;
+use App\Jobs\SendSellerOrderConfirmationEmail;
+use App\Jobs\SendUserOrderConfirmationEmail;
 
 class PaymentController extends Controller
 {
@@ -36,28 +40,31 @@ class PaymentController extends Controller
 
     public function success(Request $request)
     {
-        $user = Auth::user();
-        $item = Item::all();
-        // テスト用のOrderデータを作成
+        // テストデータの作成
+        $user = User::first();
+        $seller = Seller::first();
+        $item = Item::first();
+
+        // Order を作成
         $order = new Order([
             'user_id' => $user->id,
             'created_at' => now(),
         ]);
-        //保存
         $order->save();
-        // メール送信 (非同期)
-        SendMailJob::dispatch(null, $order, null, $user);
 
-        foreach ($order->items as $item) {
-            $item->total_price = $item->pivot->price * $item->pivot->amount;
-            $seller = $item->seller;
-            if ($seller) {
-                dd($seller);
-                // 販売者へのメール送信 (非同期)
-                SendMailJob::dispatch($seller, $order, $item, null);
-            }
-        }
+        // OrderItem を作成し、order_items テーブルにデータを直接挿入
+        $orderItem = new OrderItem([
+            'order_id' => $order->id,
+            'item_id' => $item->id,
+            'amount' => 1, // 購入数を指定
+            'price' => $item->price,
+        ]);
+        $orderItem->save();
 
+        // SendMailJob をディスパッチ
+        // Jobのディスパッチ
+        SendUserOrderConfirmationEmail::dispatch($order);
+        SendSellerOrderConfirmationEmail::dispatch($order, $user);
         //return redirect()->route('index');
     }
 
