@@ -53,18 +53,19 @@ class ItemController extends Controller
         if ($keys !== null && $keys1 !== 'null') {
             $keys2 = array_merge($keys, $keys1);
         }
-        $i = 0;
+
+        $i = 0; // 初期値
         $query = Item::query();
         $items = Item::all();
         if ($keys !== null && $keys1 !== 'null') {
             foreach ($keys2 as $key) {
                 if ($i === 0) {
-                    $query->where("name", "LIKE", "%{$key}%");
+                    $query->where("name", "LIKE", "%{$key}%"); //$i==0
                 } else {
                     $query->orWhere("name", "LIKE", "%{$key}%")
                         ->orWhere("category_id", $key);
                 }
-                $i++;
+                $i++; //increment +1される
             }
         } else if ($keys !== null && $keys1 === 'null') {
             foreach ($keys as $key) {
