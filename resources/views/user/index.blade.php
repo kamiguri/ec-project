@@ -26,7 +26,7 @@
                     @foreach ($items as $item)
                     <ul>
                         <a href="{{route('show',['item_id' => $item->id])}}">
-                        <li><img src="{{ asset('storage/' . $item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid"></li>
+                        <li><img src="{{ $item->photo_path }}" alt="{{ $item->name }}" class="img-fluid" style="width: 150px; height: 150px;"></li>
                         <li>{{$item->name}}</li>
                         <li>在庫数：{{$item->stock}}　価格{{$item->price}}</li>
                         </a>
