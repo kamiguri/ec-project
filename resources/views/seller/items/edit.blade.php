@@ -19,10 +19,7 @@
             <label for="price">価格</label>
             <input type="number" class="form-control" id="price" name="price" value="{{old("price",$item->price)}}">
         </div>
-        <div class="form-group">
-            <label for="stock">在庫数</label>
-            <input type="number" class="form-control" id="stock" name="stock" value="{{old("stock",$item->stock)}}">
-        </div>
+
         <div class="form-group">
             <label for="category">カテゴリー</label>
             <select class="form-control" id="category" name="category_id" required>
@@ -33,6 +30,6 @@
             </select>
         </div>
         <a href="{{ route('seller.show',$item->id) }}">戻る</a>
-        <a href="{{route("seller.update",$item->id)}}">更新</a>
+        <button type="submit">更新</button>
     </form>
 </div>

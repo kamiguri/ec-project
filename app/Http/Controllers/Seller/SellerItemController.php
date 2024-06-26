@@ -76,10 +76,10 @@ class SellerItemController extends Controller
         $item->name=$request->input("name");
         $item->description=$request->input("description");
         $item->price=$request->input("price");
-        $item->categories_id=$request->input("categories_id");
-        dd($item);
+        $item->category_id=$request->input("category_id");
+        $categories = Category::all();
         $item->save();
-        return view("seller.items.edit",compact("item"));
+        return redirect()->route('seller.show', $id);
     }
 
     public function stock_edit($id)
