@@ -13,7 +13,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-8">
                                 <div class="card">
-                                    <div class="card-header">{{ __('売上チャート') }}</div>
+                                    <div class="card-header">{{ __('月別売上 (直近1年間)') }}</div>
                                     <div class="card-body">
                                         <div>
                                             <canvas id="myChart"></canvas>
@@ -30,14 +30,16 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const ctx = document.getElementById('myChart')
+        const monthLabels = Object.values({{ Js::from($monthLabels) }})
+        const salesData = Object.values({{ Js::from($salesData) }})
 
         new Chart(ctx, {
             type: 'bar',
                 data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: monthLabels,
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    label: '売上',
+                    data: salesData,
                     borderWidth: 1
                 }]
                 },

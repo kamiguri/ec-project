@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage; // ファイル保存に必要
 use App\Models\Seller;
+use Illuminate\Support\Js;
 
 class SellerItemController extends Controller
 {
@@ -97,6 +98,11 @@ class SellerItemController extends Controller
 
     public function analysis()
     {
-        return view('seller.analysis');
+        $data = Item::monthlySales(Auth::id())->get()->sortBy('month');
+
+        $salesData = $data->pluck('sales')->toArray();
+        $monthLabels = $data->pluck('month')->toArray();
+
+        return view('seller.analysis', compact('salesData', 'monthLabels'));
     }
 }
