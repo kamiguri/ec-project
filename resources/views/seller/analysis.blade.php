@@ -16,7 +16,15 @@
                                     <div class="card-header">{{ __('月別売上 (直近1年間)') }}</div>
                                     <div class="card-body">
                                         <div>
-                                            <canvas id="myChart"></canvas>
+                                            <canvas id="monthlySalesChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">{{ __('日別売上 (直近30日間)') }}</div>
+                                    <div class="card-body">
+                                        <div>
+                                            <canvas id="dailySalesChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -29,17 +37,17 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const ctx = document.getElementById('myChart')
+        const monthlyChart = document.getElementById('monthlySalesChart')
         const monthLabels = Object.values({{ Js::from($monthLabels) }})
-        const salesData = Object.values({{ Js::from($salesData) }})
+        const monthlySalesData = Object.values({{ Js::from($monthlySalesData) }})
 
-        new Chart(ctx, {
+        new Chart(monthlyChart, {
             type: 'bar',
                 data: {
                 labels: monthLabels,
                 datasets: [{
                     label: '売上',
-                    data: salesData,
+                    data: monthlySalesData,
                     borderWidth: 1
                 }]
                 },
@@ -51,5 +59,28 @@
                 }
             }
         })
+
+        // const dailyChart = document.getElementById('dailySalesChart')
+        // const dateLabels = Object.values()
+        // const dailySalesData = Object.values()
+
+        // new Chart(dailyChart, {
+        //     type: 'bar',
+        //         data: {
+        //         labels: dateLabels,
+        //         datasets: [{
+        //             label: '売上',
+        //             data: dailySalesData,
+        //             borderWidth: 1
+        //         }]
+        //         },
+        //         options: {
+        //         scales: {
+        //             y: {
+        //             beginAtZero: true
+        //             }
+        //         }
+        //     }
+        // })
     </script>
 </x-app-layout>

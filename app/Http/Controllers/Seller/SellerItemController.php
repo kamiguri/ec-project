@@ -100,9 +100,9 @@ class SellerItemController extends Controller
     {
         $data = Item::monthlySales(Auth::id())->get()->sortBy('month');
 
-        $salesData = $data->pluck('sales')->toArray();
+        $monthlySalesData = $data->pluck('sales')->toArray();
         $monthLabels = $data->pluck('month')->toArray();
 
-        return view('seller.analysis', compact('salesData', 'monthLabels'));
+        return view('seller.analysis', compact('monthlySalesData', 'monthLabels'));
     }
 }
