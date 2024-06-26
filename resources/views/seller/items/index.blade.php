@@ -24,15 +24,6 @@
                                         </a>
                                     </ul>
                                     @endforeach
-
-                                    {{-- <div class="card-body">
-                                        @if (session('status'))
-                                            <div class="alert alert-success" role="alert">
-                                                {{ session('status') }}
-                                            </div>
-                                        @endif
-                                        <a href="{{ route('seller.items.create') }}" class="btn btn-primary">商品登録</a>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>

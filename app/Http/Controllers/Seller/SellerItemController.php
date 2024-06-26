@@ -77,6 +77,7 @@ class SellerItemController extends Controller
         $item->description=$request->input("description");
         $item->price=$request->input("price");
         $item->category_id=$request->input("category_id");
+        $item->is_show = $request->input('is_show');
         $item->save();
         return redirect()->route('seller.show', $id);
     }
