@@ -15,10 +15,11 @@
                             @foreach ($order->items as $item)
                                 <li>
                                     <img src="{{ $item->photo_path }}" alt="{{ $item->name }}" style="width: 100px; height: 100px;">
-                                    <h3>{{ $item->name }}</h3>
+                                    <a href="{{route('show',['item_id' => $item->id])}}"><h2>{{ $item->name }}</h2></a>
                                     <p>カテゴリー: {{ $item->category->name }}</p>
-                                    <p>価格: ¥{{ $item->total_price }}</p>
+                                    <p>合計金額: ¥{{ $item->total_price }}</p>
                                     <p>数量: {{ $item->pivot->amount }}</p>
+                                    <p>価格：¥{{$item->pivot->price}}</p>
                                 </li>
                             @endforeach
                         </ul>
