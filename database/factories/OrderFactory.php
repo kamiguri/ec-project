@@ -19,8 +19,8 @@ class OrderFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'created_at' =>fake()->dateTimeBetween('-3 years'),
-            'updated_at' =>fake()->dateTimeBetween('-3 years'),
+            'created_at' =>fake()->dateTimeBetween('-2 years'),
+            'updated_at' =>fake()->dateTimeBetween('-2 years'),
         ];
     }
 }
