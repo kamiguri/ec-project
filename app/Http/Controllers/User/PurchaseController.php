@@ -13,9 +13,14 @@ class PurchaseController extends Controller
     public function index(){
         //現在のユーザーを取得
         $user = Auth::user();
+        // $query=Item::query();
+        // $query->orderBy('created_at', 'desc');
 
         //ユーザーの注文とそれに関連するアイテムを取得
-        $orders = $user->orders()->with(['items.category'])->get();
+        $orders = $user->orders()
+                  ->with(['items.category'])
+                  ->orderBy('created_at', 'desc')
+                  ->get();
         foreach ($orders as $order) {
             foreach ($order->items as $item) {
                 $item->total_price = ceil(($item->pivot->price * $item->pivot->amount) * 1.1);
@@ -36,4 +41,9 @@ class PurchaseController extends Controller
         }
         return view('user.purchase.create', compact('cartItems', 'totalPrice'));
     }
+
+    public function search()
+{
+
+}
 }
