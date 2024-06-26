@@ -18,12 +18,21 @@
                                     @foreach ($items as $item)
                                     <ul>
                                         <a href="{{route('seller.show',['item_id' => $item->id])}}">
-                                        <li><img src="{{ asset('storage/' . $item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid"></li>
+                                        <li><img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid" style="width: 150px; height: 150px;"></li>
                                         <li>{{$item->name}}</li>
                                         <li>在庫数：{{$item->stock}}　価格{{$item->price}}</li><br>
                                         </a>
                                     </ul>
                                     @endforeach
+
+                                    {{-- <div class="card-body">
+                                        @if (session('status'))
+                                            <div class="alert alert-success" role="alert">
+                                                {{ session('status') }}
+                                            </div>
+                                        @endif
+                                        <a href="{{ route('seller.items.create') }}" class="btn btn-primary">商品登録</a>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

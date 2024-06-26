@@ -1,0 +1,102 @@
+/* styles.css */
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #f7fafc;
+    color: #2d3748;
+}
+
+h2 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+form button {
+    background-color: #4a5568;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    margin-right: 0.5em;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+form button:hover {
+    background-color: #2d3748;
+}
+
+form input[type="search"] {
+    border: 1px solid #cbd5e0;
+    padding: 0.5em;
+    margin-right: 0.5em;
+    border-radius: 5px;
+    width: 200px;
+}
+
+form select {
+    border: 1px solid #cbd5e0;
+    padding: 0.5em;
+    border-radius: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 1em 0;
+    background: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+ul a {
+    display: block;
+    padding: 1em;
+    color: #2d3748;
+    text-decoration: none;
+}
+
+ul a:hover {
+    background: #e2e8f0;
+}
+
+ul li {
+    margin: 0.5em 0;
+}
+
+ul li img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 0.5em;
+}
+
+ul li:last-child {
+    margin-bottom: 0;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.shadow-sm {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sm\:rounded-lg {
+    border-radius: 0.5rem;
+}
+
+.p-6 {
+    padding: 1.5rem;
+}
+
+.text-gray-900 {
+    color: #1a202c;
+}

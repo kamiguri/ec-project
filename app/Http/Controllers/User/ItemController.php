@@ -19,9 +19,10 @@ class ItemController extends Controller
     {
         $user = Auth::user();
         $query = Item::query();
+        $categories = Category::all();
         $query->orderBy('created_at', 'desc');
         $items = $query->get();
-        return view('user.index', compact('items', 'user'));
+        return view('user.index', compact('items', 'user', 'categories'));
     }
     public function show($item_id)
     {
