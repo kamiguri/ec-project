@@ -9,6 +9,18 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    <form action ="{{route("purchase.search")}}" method="get">
+                    @csrf
+                    <button type="submit">検索</button>
+                    <input type="search" name="keyword" value="">
+                    <select name="keyword1" id="keyword1">
+                        <option value="null">カテゴリー未選択</option>
+                        @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                    </form>
+                    @if(!isset($searches))
                     @foreach ($orders as $order)
                     注文日時:{{$order->created_at}}
                         <ul>
@@ -24,6 +36,26 @@
                             @endforeach
                         </ul>
                     @endforeach
+                    @else
+
+                    @foreach ($orders as $order)
+                    注文日時:{{$order->created_at}}
+                        <ul>
+                            @foreach ($searches as $searche)
+                                <li>
+                                    <img src="{{ $searche->photo_path }}" alt="{{ $searche->name }}" style="width: 100px; height: 100px;">
+                                    <a href="{{route('show',['item_id' => $searche->id])}}"><h2>{{ $searche->name }}</h2></a>
+                                    <p>カテゴリー: {{ $searche->category->name }}</p>
+                                    <p>合計金額: ¥{{ $searche->total_price }}</p>
+                                    <p>数量: {{ $searche->pivot->amount }}</p>
+                                    <p>価格：¥{{$searche->pivot->price}}</p>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endforeach
+                    @endif
+
+
                 </div>
             </div>
         </div>
