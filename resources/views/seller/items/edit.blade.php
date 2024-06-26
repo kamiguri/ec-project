@@ -23,10 +23,11 @@
         <div class="form-group">
             <label for="category">カテゴリー</label>
             <select class="form-control" id="category" name="category_id" required>
-                <option value="">選択してください</option>
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
+                    <option value="{{ $category->id }}" @selected(old("category") == $category->name)>
+                        {{ $category->name }}
+                    </option>
+                 @endforeach
             </select>
         </div>
         <a href="{{ route('seller.show',$item->id) }}">戻る</a>
