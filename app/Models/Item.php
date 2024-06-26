@@ -50,4 +50,10 @@ class Item extends Model
     {
         return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id');
     }
+
+    //コメントのリレーション
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

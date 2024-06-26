@@ -15,7 +15,8 @@
                                 <div class="card">
                                     <div class="card-header">{{ $item->name }}</div>
                                     <div class="card-body">
-                                        <img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid" style="width: 150px; height: 150px;">
+                                        <img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}"
+                                            class="img-fluid" style="width: 150px; height: 150px;">
                                         <p>カテゴリー: {{ $item->category->name ?? '未設定' }}</p>
                                         <p>商品説明: {{ $item->description }}</p>
                                         <p>価格: {{ number_format($item->price) }}円</p>
@@ -26,7 +27,8 @@
                                                 <label>数量:
                                                     <select name="amount">
                                                         @for ($i = 1; $i <= 5; $i++)
-                                                            <option value="{{ $i }}">{{ $i }}</option>
+                                                            <option value="{{ $i }}">{{ $i }}
+                                                            </option>
                                                         @endfor
                                                     </select>
                                                 </label>
@@ -62,6 +64,44 @@
                                             @endauth
                                         @else
                                             <p>カートに追加するには<a href="{{ route('login') }}">ログイン</a>してください。</p>
+                                        @endauth
+                                    </div>
+
+                                    {{-- コメント表示エリア --}}
+                                    <div class="comments-area mt-4">
+                                        <h3>コメント</h3>
+                                        @foreach ($item->comments as $comment)
+                                            <div class="card mb-2">
+                                                <div class="card-body">
+                                                    <p><strong>{{ $comment->user->name }}</strong> -
+                                                        {{ $comment->created_at->diffForHumans() }}</p>
+                                                    <p>{{ $comment->content }}</p>
+                                                    <p>評価: {{ $comment->rating }} / 10</p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                        {{-- コメント投稿フォーム --}}
+                                        @auth
+                                            <form action="{{ route('comments.store', $item->id) }}" method="POST">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label for="content">コメント:</label>
+                                                    <textarea class="form-control" name="content" id="content" rows="3"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="rating">評価:</label>
+                                                    <select class="form-control" name="rating" id="rating">
+                                                        @for ($i = 1; $i <= 10; $i++)
+                                                            <option value="{{ $i }}">{{ $i }}
+                                                            </option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary mt-2">コメントする</button>
+                                            </form>
+                                        @else
+                                            <p>コメントするには<a href="{{ route('login') }}">ログイン</a>してください。</p>
                                         @endauth
                                     </div>
                                 </div>

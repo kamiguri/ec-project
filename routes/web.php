@@ -22,7 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/', [ItemController::class, 'index'])->name('index');
     Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('show');
-    // Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
+
+    //コメントのデータベース登録メソッド
+    Route::post('/item/{item_id}/comments', [ItemController::class, 'storeComment'])->name('comments.store');
 
     //商品のお気に入り機能
     Route::post('/items/{item_id}/favorite', [ItemController::class, 'favorite'])->name('items.favorite');
