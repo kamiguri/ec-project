@@ -20,6 +20,7 @@ class ItemController extends Controller
         $user = Auth::user();
         $query = Item::query();
         $categories = Category::all();
+        $query->where('is_show','1');
         $query->orderBy('created_at', 'desc');
         $items = $query->get();
         return view('user.index', compact('items', 'user', 'categories'));
@@ -88,6 +89,7 @@ class ItemController extends Controller
                 $i++;
             }
         }
+        $query->where('is_show','1');
         $query->orderBy('created_at', 'desc');
         $searches = $query->get();
         return view('user.index', compact('searches', 'items', 'id', 'categories'));

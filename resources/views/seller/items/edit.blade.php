@@ -37,6 +37,13 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div>
+                                <label for="is_show">商品の表示選択</label>
+                                <select name="is_show" id="is_show">
+                                    <option value="1">表示</option>
+                                    <option value="0">非表示</option>
+                                </select>
+                            </div>
                             <a href="{{ route('seller.show',$item->id) }}">戻る</a>
                             <button type="submit">更新</button>
                         </form>
