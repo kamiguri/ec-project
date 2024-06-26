@@ -60,27 +60,27 @@
             }
         })
 
-        // const dailyChart = document.getElementById('dailySalesChart')
-        // const dateLabels = Object.values()
-        // const dailySalesData = Object.values()
+        const dailyChart = document.getElementById('dailySalesChart')
+        const dateLabels = Object.values({{ Js::from($dateLabels) }})
+        const dailySalesData = Object.values({{ Js::from($dailySalesData) }})
 
-        // new Chart(dailyChart, {
-        //     type: 'bar',
-        //         data: {
-        //         labels: dateLabels,
-        //         datasets: [{
-        //             label: '売上',
-        //             data: dailySalesData,
-        //             borderWidth: 1
-        //         }]
-        //         },
-        //         options: {
-        //         scales: {
-        //             y: {
-        //             beginAtZero: true
-        //             }
-        //         }
-        //     }
-        // })
+        new Chart(dailyChart, {
+            type: 'bar',
+                data: {
+                labels: dateLabels,
+                datasets: [{
+                    label: '売上',
+                    data: dailySalesData,
+                    borderWidth: 1
+                }]
+                },
+                options: {
+                scales: {
+                    y: {
+                    beginAtZero: true
+                    }
+                }
+            }
+        })
     </script>
 </x-app-layout>

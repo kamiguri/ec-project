@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage; // ファイル保存に必要
 use App\Models\Seller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Js;
 
 class SellerItemController extends Controller
@@ -98,11 +99,109 @@ class SellerItemController extends Controller
 
     public function analysis()
     {
-        $data = Item::monthlySales(Auth::id())->get()->sortBy('month');
+        $sellerId = Auth::id();
 
-        $monthlySalesData = $data->pluck('sales')->toArray();
-        $monthLabels = $data->pluck('month')->toArray();
+        $monthlyData = DB::select(<<<EOD
+            SELECT
+                IFNULL(sales.price, 0) AS sales,
+                DATE_FORMAT(calendar.month, "%Y-%m") AS month
+            FROM
+                (
+                SELECT
+                    SUM(
+                        order_items.price * order_items.amount
+                    ) AS price,
+                    DATE_FORMAT(orders.created_at, "%Y-%m") AS month
+                FROM
+                    items
+                LEFT JOIN order_items ON order_items.item_id = items.id
+                LEFT JOIN orders ON orders.id = order_items.order_id
+                WHERE
+                    items.seller_id = {$sellerId}
+                GROUP BY
+                    DATE_FORMAT(orders.created_at, "%Y-%m")
+                ORDER BY
+                    DATE_FORMAT(orders.created_at, "%Y-%m")
+                DESC
+            ) AS sales
+            RIGHT JOIN(
+                SELECT
+                    DATE_FORMAT(
+                        DATE_ADD(
+                            NOW(), INTERVAL - seq.num MONTH),
+                            "%Y-%m-%d"
+                        ) AS month,
+                        seq.num
+                    FROM
+                        (
+                        SELECT
+                            @num := 1 AS num
+                        UNION ALL
+                    SELECT
+                        @num := @num + 1
+                    FROM
+                        information_schema.columns
+                    LIMIT 12
+                    ) AS seq
+                    ) AS calendar
+                ON
+                    DATE_FORMAT(calendar.month, "%Y-%m") = sales.month
+        EOD);
 
-        return view('seller.analysis', compact('monthlySalesData', 'monthLabels'));
+        $monthlyData = collect($monthlyData)->sortBy('month');
+        $monthlySalesData = $monthlyData->pluck('sales')->toArray();
+        $monthLabels = $monthlyData->pluck('month')->toArray();
+
+        $dailyData = DB::select(<<<EOD
+            SELECT
+                IFNULL(sales.price, 0) AS sales,
+                DATE_FORMAT(calendar.date, "%m-%d") AS date
+            FROM
+                (
+                SELECT
+                    SUM(
+                        order_items.price * order_items.amount
+                    ) AS price,
+                    DATE_FORMAT(orders.created_at, "%Y-%m-%d") AS DATE
+                FROM
+                    items
+                LEFT JOIN order_items ON order_items.item_id = items.id
+                LEFT JOIN orders ON orders.id = order_items.order_id
+                WHERE
+                    items.seller_id = {$sellerId}
+                GROUP BY
+                    DATE_FORMAT(orders.created_at, "%Y-%m-%d")
+                ORDER BY
+                    DATE_FORMAT(orders.created_at, "%Y-%m-%d")
+                DESC
+            ) AS sales
+            RIGHT JOIN(
+                SELECT
+                    DATE_FORMAT(
+                        DATE_ADD(NOW(), INTERVAL - seq.num DAY),
+                        "%Y-%m-%d") AS DATE,
+                        seq.num
+                    FROM
+                        (
+                        SELECT
+                            @num := 1 AS num
+                        UNION ALL
+                    SELECT
+                        @num := @num + 1
+                    FROM
+                        information_schema.columns
+                    LIMIT 30
+                    ) AS seq
+                    ) AS calendar
+                ON
+                    calendar.date = sales.date
+        EOD);
+
+        $dailyData = collect($dailyData)->sortBy('date');
+        $dailySalesData = $dailyData->pluck('sales')->toArray();
+        $dateLabels = $dailyData->pluck('date')->toArray();
+
+        return view('seller.analysis', compact('monthlySalesData', 'monthLabels', 'dailySalesData', 'dateLabels'));
+
     }
 }
