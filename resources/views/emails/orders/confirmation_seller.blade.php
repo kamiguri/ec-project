@@ -1,22 +1,26 @@
-<!DOCTYPE html>
-<html>
+<h1>{{ $order->items[0]->seller->name }}様</h1>
+<h2>新規注文のお知らせ</h2>
+<p>{{ $order->user->name }}様からご注文がありました。</p>
 
-<head>
-    <title>ユーザーから注文が入りました</title>
-</head>
+<table>
+    <thead>
+        <tr>
+            <th>商品名</th>
+            <th>数量</th>
+            <th>価格</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($order->items as $item)
+            <tr>
+                <td>{{ $item->name }}</td>
+                <td>{{ $item->pivot->amount }}</td>
+                <td>{{ $item->pivot->price }}円</td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
 
-<body>
-    <h1>注文が入りました</h1>
+<p>合計金額: {{ $order->items->sum('pivot.price') }}円</p>
 
-    <p>この度は、ご注文いただき誠にありがとうございます。</p>
-
-    <p>ご注文の詳細はこちら</p>
-    <h1>注文詳細</h1>
-    <p>注文ID: {{ $orderId }}</p>
-    <p>アイテム名: {{ $itemName }}</p>
-    <p>価格: ¥{{ $itemPrice }}</p>
-    <p>数量: {{ $itemAmount }}</p>
-    <p>今後とも、よろしくお願いいたします。</p>
-</body>
-
-</html>
+<p>詳細は管理画面をご確認ください。</p>

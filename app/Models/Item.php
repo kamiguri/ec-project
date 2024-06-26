@@ -33,4 +33,21 @@ class Item extends Model
     {
         return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id');
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class)->withPivot('price', 'amount');
+    }
+
+    // カートに追加したユーザーとのリレーション
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    // いいねのリレーション
+    public function usersWhoLiked()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id');
+    }
 }
