@@ -21,7 +21,7 @@ Route::middleware(['auth:sellers', 'verified'])->group(function () {
     Route::get("/item/{item_id}/stock",[SellerItemController::class,"stock_edit"])->name("seller.stock");
     Route::post("/item/{item_id}/stock",[SellerItemController::class,"stock_update"])->name("seller.stock");
     //item詳細画面
-    Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('show');
+    Route::get('/item/{item_id}', [SellerItemController::class, 'show'])->name('show');
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
