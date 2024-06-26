@@ -18,7 +18,7 @@ class PurchaseController extends Controller
         $orders = $user->orders()->with(['items.category'])->get();
         foreach ($orders as $order) {
             foreach ($order->items as $item) {
-                $item->total_price = ($item->pivot->price * $item->pivot->amount) * 1.1;
+                $item->total_price = ceil(($item->pivot->price * $item->pivot->amount) * 1.1);
             }
         }
         return view('user.purchase.index', compact('orders'));

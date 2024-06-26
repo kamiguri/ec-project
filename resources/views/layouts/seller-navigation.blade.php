@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('seller.dashboard') }}">
+                    <a href="{{ route('seller.items.index') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
@@ -21,9 +21,9 @@
                     <x-nav-link :href="route('seller.analysis')" :active="request()->routeIs('seller.analysis')">
                         {{ __('売上分析') }}
                     </x-nav-link>
-                    {{-- <x-nav-link :href="route('seller.profile')" :active="request()->routeIs('profile.edit')">
+                    <x-nav-link :href="route('seller.profile.edit')" :active="request()->routeIs('seller.profile.edit')">
                         {{ __('プロフィール') }}
-                    </x-nav-link> --}}
+                    </x-nav-link>
                 </div>
             </div>
 

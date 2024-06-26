@@ -14,7 +14,6 @@
                         <div class="row justify-content-center">
                             <div class="col-md-8">
                                 <div class="card">
-                                    <div class="card-header">{{ __('Seller Dashboard') }}</div>
                                     {{-- 商品名一覧 --}}
                                     @foreach ($items as $item)
                                     <ul>
@@ -25,18 +24,6 @@
                                         </a>
                                     </ul>
                                     @endforeach
-
-                                    <div class="card-body">
-                                        @if (session('status'))
-                                            <div class="alert alert-success" role="alert">
-                                                {{ session('status') }}
-                                            </div>
-                                        @endif
-
-                                        {{ __('You are logged in as Seller!') }}<br>
-
-                                        <a href="{{ route('seller.items.create') }}" class="btn btn-primary">商品登録</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
