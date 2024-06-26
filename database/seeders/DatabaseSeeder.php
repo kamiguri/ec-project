@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
 
         $items = Item::factory(30)->for($seller)->create();
 
-        Order::factory(100)
+        Order::factory(300)
             ->recycle($users)
             ->create()
             ->each(function ($order) use ($items) {
@@ -43,6 +43,24 @@ class DatabaseSeeder extends Seeder
                 foreach ($itemIdsToAttach as $id) {
                     $order->items()->attach($id, [
                         'amount' => fake()->numberBetween(1, 5), 'price' => $items->find($id)->price
+                    ]);
+                }
+            });
+
+        $seller2 = Seller::factory()
+            ->create([
+                'name' => 'Test Seller2',
+                'email' => 'seller2@example.com',
+            ]);
+        $seller2items = Item::factory(30)->for($seller2)->create();
+        Order::factory(100)
+            ->recycle($users)
+            ->create()
+            ->each(function ($order) use ($seller2items) {
+                $itemIdsToAttach = $seller2items->random(rand(1, 5))->pluck('id')->toArray();
+                foreach ($itemIdsToAttach as $id) {
+                    $order->items()->attach($id, [
+                        'amount' => fake()->numberBetween(1, 5), 'price' => $seller2items->find($id)->price
                     ]);
                 }
             });
