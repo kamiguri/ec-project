@@ -22,10 +22,11 @@ Route::middleware(['auth:sellers', 'verified'])->group(function () {
     //item詳細画面
     Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('show');
 
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/analysis', [SellerItemController::class, 'analysis'])->name('analysis');
 
 });
 

@@ -78,7 +78,11 @@ class SellerItemController extends Controller
         $item=Item::find($id);
         $item->stock=$request->input("stock");
         $item->save();
-         return view("seller.stock",compact("item"));
+        return view("seller.stock",compact("item"));
+    }
 
+    public function analysis()
+    {
+        return view('seller.analysis');
     }
 }
