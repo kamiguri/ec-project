@@ -62,6 +62,8 @@ class Item extends Model
             ->leftJoin('orders', 'order_items.order_id', '=', 'orders.id')
             ->where('items.seller_id', $seller_id)
             ->groupByRaw('DATE_FORMAT(orders.created_at, "%Y-%m")')
-            ->orderByRaw('DATE_FORMAT(orders.created_at, "%Y-%m") DESC');
+            ->orderByRaw('DATE_FORMAT(orders.created_at, "%Y-%m") DESC')
+            ->limit(12)
+            ;
     }
 }
