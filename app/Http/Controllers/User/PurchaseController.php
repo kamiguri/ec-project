@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\Category;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Item;
@@ -14,18 +13,15 @@ class PurchaseController extends Controller
     public function index(){
         //現在のユーザーを取得
         $user = Auth::user();
-        $categories=Category::all();
+
         //ユーザーの注文とそれに関連するアイテムを取得
-        $orders = $user->orders()
-                  ->with(['items.category'])
-                  ->orderBy('created_at', 'desc')
-                  ->get();
+        $orders = $user->orders()->with(['items.category'])->get();
         foreach ($orders as $order) {
             foreach ($order->items as $item) {
                 $item->total_price = ceil(($item->pivot->price * $item->pivot->amount) * 1.1);
             }
         }
-        return view('user.purchase.index', compact('orders',"categories"));
+        return view('user.purchase.index', compact('orders'));
     }
 
     public function create()
@@ -45,8 +41,8 @@ class PurchaseController extends Controller
     {
         $keyword = $request->input("keyword");
         //  $orders = [];
-
         $user = Auth::user();
+        $searches= Order::where("user_id",$user->id)->get();
         if (!empty($keyword)) {
             $searches = Order::where("user_id",$user->id)
                     ->OrderBy("created_at","DESC")

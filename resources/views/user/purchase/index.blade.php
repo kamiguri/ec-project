@@ -41,7 +41,7 @@
                              @if(str_contains($item->name,$keyword))
 
                                 <li>
-                                    <img src="{{ $item->photo_path }}" alt="{{ $item->name }}" style="width: 100px; height: 100px;">
+                                    <img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" style="max-height: 200px;">
                                     <a href="{{route('show',['item_id' => $item->id])}}"><h2>{{ $item->name }}</h2></a>
                                     <p>カテゴリー: {{ $item->category->name }}</p>
                                     <p>合計金額: ¥{{ $item->total_price }}</p>

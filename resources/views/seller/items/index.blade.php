@@ -44,15 +44,15 @@
                                     </ul>
                                     @endforeach
                                     @else
-                                    @foreach ($searches as $searche)
+                                    @foreach ($searches as $search)
                                     <ul>
-                                        <a href="{{route('seller.show',['item_id' => $searche->id])}}">
-                                        <li><img src="{{ asset($searche->photo_path) }}" alt="{{ $searche->name }}" class="img-fluid" style="max-height: 200px;"></li>
-                                        <li>{{$searche->name}}</li>
-                                        <li>在庫数：{{$searche->stock}}　価格{{$searche->price}}</li>
+                                        <a href="{{route('seller.show',['item_id' => $search->id])}}">
+                                        <li><img src="{{ asset($search->photo_path) }}" alt="{{ $search->name }}" class="img-fluid" style="max-height: 200px;"></li>
+                                        <li>{{$search->name}}</li>
+                                        <li>在庫数：{{$search->stock}}　価格{{$search->price}}</li>
                                         <li>
                                             @foreach ($categories as $category)
-                                            @if ($category->id === $searche->category_id)
+                                            @if ($category->id === $search->category_id)
                                             カテゴリー：{{$category->name}}
                                             @endif
                                             @endforeach
