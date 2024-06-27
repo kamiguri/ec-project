@@ -22,7 +22,7 @@
                                             </div>
                                         @endif
                                         {{-- 商品詳細 --}}
-                                        <img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid" style="width: 150px; height: 150px;">
+                                        <img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid" style="max-height: 200px;">
                                         {{$item->name}}
                                         在庫数：{{$item->stock}}　価格{{$item->price}}
                                         {{$stock_text}}

@@ -20,16 +20,11 @@
                                 <label for="photo_path">写真</label>
                                 @if ($item->photo_path)
                                     <div>
-                                        <img src="{{ asset($item->photo_path) }}" alt="Current Photo" style="max-width: 200px; max-height: 200px;">
+                                        <img src="{{ asset($item->photo_path) }}" alt="Current Photo" style="max-height: 200px;">
                                     </div>
                                 @endif
                                 <input type="file" class="form-control-file" id="photo_path" name="photo_path">
                             </div>
-
-                            {{-- <div class="form-group">
-                                <label for="photo_path">写真</label>
-                                <input type="file" class="form-control-file" id="photo_path" name="photo_path" >
-                            </div> --}}
                             <div class="form-group">
                                 <label for="description">商品説明</label>
                                 <textarea class="form-control" id="description" name="description">{{old("description",$item->description)}}</textarea>

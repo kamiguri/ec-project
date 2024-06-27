@@ -13,11 +13,12 @@ class SellerItemController extends Controller
 {
     public function index()
     {
+        $categories = Category::all();
         $sellerId = Auth::user();
         $query = Item::query()->where('seller_id', $sellerId->id)->orderBy('created_at','desc');
 
         $items = $query->get();
-        return view("seller.items.index",compact('items'));
+        return view("seller.items.index",compact('items','categories'));
     }
     public function create()
     {
@@ -118,5 +119,70 @@ class SellerItemController extends Controller
 
         return view('seller.analysis', compact('monthlySalesData', 'monthLabels', 'dailySalesData', 'dateLabels'));
 
+    }
+
+    public function search(Request $request)
+    {
+        //商品名、カテゴリー、新着順
+        $id = 0;
+        $key_count = 0;
+        $id = Auth::id();
+        $categories = Category::all();
+        if ($id) {
+            $user = Auth::user()->name;
+        }
+        $keys = $request->keyword; //商品名のキーワード
+        $keys1 = $request->keyword1;//カテゴリーのキーワード
+        $keys_kana = mb_convert_kana($keys,'s'); //全角スペースがある場合は半角に変更
+
+        if ($keys !== null) {
+            $keys_kana = explode(" ", $keys_kana);
+            $key_count++;
+        }
+        if ($keys1 !== 'null') {
+            $keys1 = explode(" ", $request->keyword1);
+        }
+        $keys2 = null;
+        if ($keys !== null && $keys1 !== 'null') {
+            $keys2 = array_merge($keys_kana, $keys1);//商品名とカテゴリーを配列に入れる
+        }
+
+        $i = 0; // 初期値
+        $query = Item::query();
+        $items = Item::all();
+        $query->where('is_show','1')->where('stock','>','0');
+        if ($keys !== null && $keys1 !== 'null') {
+            //商品名とカテゴリーの両方に入力がある時
+            foreach ($keys2 as $key) {
+                if ($i === 0) {
+                    $query->where("name", "LIKE", "%{$key}%"); //$i==0
+                } else {
+                    $query->orWhere("name", "LIKE", "%{$key}%")
+                        ->orWhere("category_id", $key);
+                }
+                $i++; //increment +1される
+            }
+        } else if ($keys !== null && $keys1 === 'null') {
+            //商品名にのみ入力がある時
+            foreach ($keys_kana as $key) {
+                if ($i === 0) {
+                    $query->where("name", "LIKE", "%{$key}%");
+                } else {
+                    $query->orWhere("name", "LIKE", "%{$key}%");
+                }
+                $i++;
+            }
+        } else if ($keys === null && $keys1 !== 'null') {
+            //カテゴリーにのみ入力がある時
+            foreach ($keys1 as $key) {
+                if ($i === 0) {
+                    $query->where("category_id", $key);
+                }
+                $i++;
+            }
+        }
+        $query->orderBy('created_at', 'desc');
+        $searches = $query->get();
+        return view('user.index', compact('searches', 'items', 'id', 'categories'));
     }
 }
