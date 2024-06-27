@@ -75,7 +75,8 @@ class ItemController extends Controller
         if ($keys !== null && $keys1 !== 'null') {
             $keys2 = array_merge($keys_kana, $keys1);//商品名とカテゴリーを配列に入れる
         }
-        $i = 0;
+
+        $i = 0; // 初期値
         $query = Item::query();
         $items = Item::all();
         $query->where('is_show','1')->where('stock','>','0');
@@ -83,12 +84,12 @@ class ItemController extends Controller
             //商品名とカテゴリーの両方に入力がある時
             foreach ($keys2 as $key) {
                 if ($i === 0) {
-                    $query->where("name", "LIKE", "%{$key}%");
+                    $query->where("name", "LIKE", "%{$key}%"); //$i==0
                 } else {
                     $query->orWhere("name", "LIKE", "%{$key}%")
                         ->orWhere("category_id", $key);
                 }
-                $i++;
+                $i++; //increment +1される
             }
         } else if ($keys !== null && $keys1 === 'null') {
             //商品名にのみ入力がある時
