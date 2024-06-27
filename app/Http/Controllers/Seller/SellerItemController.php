@@ -13,11 +13,12 @@ class SellerItemController extends Controller
 {
     public function index()
     {
+        $categories = Category::all();
         $sellerId = Auth::user();
         $query = Item::query()->where('seller_id', $sellerId->id)->orderBy('created_at','desc');
 
         $items = $query->get();
-        return view("seller.items.index",compact('items'));
+        return view("seller.items.index",compact('items','categories'));
     }
     public function create()
     {

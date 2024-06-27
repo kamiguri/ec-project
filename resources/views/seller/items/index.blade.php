@@ -20,7 +20,14 @@
                                         <a href="{{route('seller.show',['item_id' => $item->id])}}">
                                         <li><img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid" style="height: 150px;"></li>
                                         <li>{{$item->name}}</li>
-                                        <li>在庫数：{{$item->stock}}　価格{{$item->price}}</li><br>
+                                        <li>在庫数：{{$item->stock}}　価格{{$item->price}}</li>
+                                        <li>
+                                            @foreach ($categories as $category)
+                                            @if ($category->id === $item->category_id)
+                                            カテゴリー：{{$category->name}}
+                                            @endif
+                                            @endforeach
+                                        </li><br>
                                         </a>
                                     </ul>
                                     @endforeach

@@ -25,11 +25,6 @@
                                 @endif
                                 <input type="file" class="form-control-file" id="photo_path" name="photo_path">
                             </div>
-
-                            {{-- <div class="form-group">
-                                <label for="photo_path">写真</label>
-                                <input type="file" class="form-control-file" id="photo_path" name="photo_path" >
-                            </div> --}}
                             <div class="form-group">
                                 <label for="description">商品説明</label>
                                 <textarea class="form-control" id="description" name="description">{{old("description",$item->description)}}</textarea>
