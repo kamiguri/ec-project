@@ -4,7 +4,8 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CartRequest;
+use App\Http\Requests\UpdateCartRequest;
+use App\Http\Requests\StoreCartRequest;
 use App\Models\Item;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ class CartController extends Controller
         return view('user.cart.index');
     }
 
-    public function store(CartRequest $request, $item_id)
+    public function store(StoreCartRequest $request, $item_id)
     {
         $item = Item::find($item_id);
 
@@ -26,12 +27,6 @@ class CartController extends Controller
         }
 
         $amount = $request->amount;
-
-        if ($item->stock === 0) {
-            return redirect()->back()->with('error', '在庫切れです');
-        } elseif ($item->stock < $amount) {
-            return redirect()->back()->with('error', '在庫が足りません、商品数を減らしてください。');
-        }
 
         $user = Auth::user();
 
@@ -55,7 +50,7 @@ class CartController extends Controller
         return redirect()->route('cart.index');
     }
 
-    public function update(CartRequest $request, $item_id)
+    public function update(UpdateCartRequest $request, $item_id)
     {
         $item = Item::find($item_id);
         if (!$item) {
@@ -63,12 +58,6 @@ class CartController extends Controller
         }
 
         $amount = $request->amount;
-
-        if ($item->stock === 0) {
-            return redirect()->back()->with('error', '在庫切れです');
-        } elseif ($item->stock < $amount) {
-            return redirect()->back()->with('error', '在庫が足りません');
-        }
 
         Auth::user()->cartItems()->updateExistingPivot($item_id, ['amount' => $amount]);
 
