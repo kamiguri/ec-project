@@ -77,9 +77,11 @@ class SellerItemController extends Controller
     }
 
     public function update(Request $request,$id){
-
+        $photoPath = $request->file('photo_path')->store('public/item_images');
+        $photoPath = str_replace('public/', 'storage/', $photoPath); // assetヘルパーで使用できるパスに変換
         $item=Item::find($id);
         $item->name=$request->input("name");
+        $item->photo_Path = $photoPath;
         $item->description=$request->input("description");
         $item->price=$request->input("price");
         $item->category_id=$request->input("category_id");
