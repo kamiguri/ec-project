@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('seller.items.create')" :active="request()->routeIs('seller.items.create')">
                         {{ __('商品登録') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('seller.analysis')" :active="request()->routeIs('seller.analysis')">
+                        {{ __('売上分析') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('seller.profile.edit')" :active="request()->routeIs('seller.profile.edit')">
                         {{ __('プロフィール') }}
                     </x-nav-link>
