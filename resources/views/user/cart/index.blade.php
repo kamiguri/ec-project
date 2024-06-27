@@ -9,21 +9,17 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    @if (Auth::user()->cartItems->isNotEmpty())
+                    @if ($cartItems->isNotEmpty())
                         <div>
                             <a href="{{ route('purchase.create') }}">
                                 <button>レジに進む</button>
                             </a>
                         </div>
                     @endif
-                    <br>
                     @error('amount')
                         {{ $message }}
                     @enderror
-                    @php
-                        $totalPrice = 0; // 合計金額を初期化
-                    @endphp
-                    @foreach (Auth::user()->cartItems as $item)
+                    @foreach ($cartItems as $item)
                         <div>
                             <ul>
                                 <li>商品名: {{ $item->name }}</li>
@@ -32,10 +28,6 @@
                                 <li>価格: {{ $item->price }}円(JPY)</li>
                                 <li>在庫数: {{ $item->stock }}</li>
                             </ul>
-                            @php
-                                $totalPrice += $item->price * $item->pivot->amount;
-                            @endphp
-
                             <form action="{{ route('cart.update', $item->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
