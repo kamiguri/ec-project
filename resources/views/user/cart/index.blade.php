@@ -28,7 +28,7 @@
                             <ul>
                                 <li>商品名: {{ $item->name }}</li>
                                 <li><img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid"
-                                        style="width: 150px; height: 150px;"></li>
+                                        style="max-height: 200px;"></li>
                                 <li>価格: {{ $item->price }}円(JPY)</li>
                                 <li>在庫数: {{ $item->stock }}</li>
                             </ul>
