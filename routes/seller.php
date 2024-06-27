@@ -17,9 +17,8 @@ Route::middleware(['auth:sellers', 'verified'])->group(function () {
     Route::get("/item/{item_id}/edit",[SellerItemController::class,"edit"])->name("edit");
     Route::post("/item/{item_id}/edit",[SellerItemController::class,"update"])->name("update");
     // ...他のseller側の商品管理ルート...
-    Route::get('/show/{item_id}', [SellerItemController::class, 'show'])->name('show');
-    Route::get("/item/{item_id}/stock",[SellerItemController::class,"stock_edit"])->name("seller.stock");
-    Route::post("/item/{item_id}/stock",[SellerItemController::class,"stock_update"])->name("seller.stock");
+    Route::get("/item/{item_id}/stock",[SellerItemController::class,"stock_edit"])->name("stock");
+    Route::post("/item/{item_id}/stock",[SellerItemController::class,"stock_update"])->name("stock");
     //item詳細画面
     Route::get('/item/{item_id}', [SellerItemController::class, 'show'])->name('show');
 
