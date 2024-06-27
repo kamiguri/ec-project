@@ -77,15 +77,13 @@ class SellerItemController extends Controller
     }
 
     public function update(Request $request,$id){
-        // 1. バリデーション
-        $request->validate([
-            'photo_path' => 'required|image', // 画像ファイル必須
-        ]);
-        $photoPath = $request->file('photo_path')->store('public/item_images');
-        $photoPath = str_replace('public/', 'storage/', $photoPath); // assetヘルパーで使用できるパスに変換
         $item=Item::find($id);
         $item->name=$request->input("name");
-        $item->photo_Path = $photoPath;
+        if(isset($request->photo_path)){
+            $photoPath = $request->file('photo_path')->store('public/item_images');
+            $photoPath = str_replace('public/', 'storage/', $photoPath); // assetヘルパーで使用できるパスに変換
+            $item->photo_Path = $photoPath;
+        }
         $item->description=$request->input("description");
         $item->price=$request->input("price");
         $item->category_id=$request->input("category_id");
