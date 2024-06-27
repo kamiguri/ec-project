@@ -8,7 +8,6 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage; // ファイル保存に必要
-use Illuminate\Support\Facades\DB;
 
 class SellerItemController extends Controller
 {
