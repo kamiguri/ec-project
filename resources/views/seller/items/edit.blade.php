@@ -15,10 +15,21 @@
                                 <label for="name">商品名</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{old("name",$item->name)}}">
                             </div>
+
                             <div class="form-group">
                                 <label for="photo_path">写真</label>
-                                <input type="file" class="form-control-file" id="photo_path" name="photo_path" >
+                                @if ($item->photo_path)
+                                    <div>
+                                        <img src="{{ asset($item->photo_path) }}" alt="Current Photo" style="max-width: 200px; max-height: 200px;">
+                                    </div>
+                                @endif
+                                <input type="file" class="form-control-file" id="photo_path" name="photo_path">
                             </div>
+
+                            {{-- <div class="form-group">
+                                <label for="photo_path">写真</label>
+                                <input type="file" class="form-control-file" id="photo_path" name="photo_path" >
+                            </div> --}}
                             <div class="form-group">
                                 <label for="description">商品説明</label>
                                 <textarea class="form-control" id="description" name="description">{{old("description",$item->description)}}</textarea>
@@ -40,8 +51,8 @@
                             <div>
                                 <label for="is_show">商品の表示選択</label>
                                 <select name="is_show" id="is_show">
-                                    <option value="1">表示</option>
-                                    <option value="0">非表示</option>
+                                    <option value="1" {{ $item->is_show == 1 ? 'selected' : '' }}>表示</option>
+                                    <option value="0" {{ $item->is_show == 0 ? 'selected' : '' }}>非表示</option>
                                 </select>
                             </div>
                             <a href="{{ route('seller.show',$item->id) }}">戻る</a>
