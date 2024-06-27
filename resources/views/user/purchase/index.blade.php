@@ -28,26 +28,32 @@
                                     <p>数量: {{ $item->pivot->amount }}</p>
                                     <p>価格：¥{{$item->pivot->price}}</p>
                                 </li>
+
                             @endforeach
                         </ul>
                     @endforeach
                     @else
 
-                    @foreach ($orders as $order)
-                    注文日時:{{$order->created_at}}
                         <ul>
-                            @foreach ($searches as $searche)
+                          @foreach ($searches as $searche)
+                          注文日時:{{$searche->created_at}}
+                            @foreach($searche->items as $item)
+                             @if(str_contains($item->name,$keyword))
+
                                 <li>
-                                    <img src="{{ $searche->photo_path }}" alt="{{ $searche->name }}" style="width: 100px; height: 100px;">
-                                    <a href="{{route('show',['item_id' => $searche->id])}}"><h2>{{ $searche->name }}</h2></a>
-                                    <p>カテゴリー: {{ $searche->category->name }}</p>
-                                    <p>合計金額: ¥{{ $searche->total_price }}</p>
-                                    <p>数量: {{ $searche->pivot->amount }}</p>
-                                    <p>価格：¥{{$searche->pivot->price}}</p>
+                                    <img src="{{ $item->photo_path }}" alt="{{ $item->name }}" style="width: 100px; height: 100px;">
+                                    <a href="{{route('show',['item_id' => $item->id])}}"><h2>{{ $item->name }}</h2></a>
+                                    <p>カテゴリー: {{ $item->category->name }}</p>
+                                    <p>合計金額: ¥{{ $item->total_price }}</p>
+                                    <p>数量: {{ $item->pivot->amount }}</p>
+                                    <p>価格：¥{{$item->pivot->price}}</p>
                                 </li>
+
+                             @endif
+                                @endforeach
                             @endforeach
                         </ul>
-                    @endforeach
+
                     @endif
 
 
