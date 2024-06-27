@@ -11,7 +11,13 @@
         </tr>
     </thead>
     <tbody>
+        @php
+            $totalPrice = 0;
+        @endphp
         @foreach ($items as $item)
+            @php
+                $totalPrice += $item->pivot->amount * $item->pivot->price;
+            @endphp
             <tr>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->pivot->amount }}</td>
@@ -21,6 +27,6 @@
     </tbody>
 </table>
 
-<p>合計金額: {{ $items->sum('pivot.price') }}円</p>
+<p>合計金額: {{ $totalPrice }}円</p>
 
 <p>詳細は管理画面をご確認ください。</p>
