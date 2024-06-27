@@ -28,7 +28,7 @@ class SendSellerOrderConfirmationEmail implements ShouldQueue
         $bySeller = $this->order->items->groupBy('seller_id');
         foreach ($bySeller as $itemsBySeller) {
             $email = $itemsBySeller->first()->seller->email;
-            Mail::to($email)->send(new SellerOrderConfirmationEmail($this->order));
+            Mail::to($email)->send(new SellerOrderConfirmationEmail($this->order, $itemsBySeller));
         }
     }
 }
