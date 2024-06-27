@@ -14,7 +14,8 @@ class SellerItemController extends Controller
     public function index()
     {
         $sellerId = Auth::user();
-        $query = Item::query()->where('seller_id', $sellerId->id);
+        $query = Item::query()->where('seller_id', $sellerId->id)->orderBy('created_at','desc');
+
         $items = $query->get();
         return view("seller.items.index",compact('items'));
     }
@@ -60,7 +61,13 @@ class SellerItemController extends Controller
 
     public function show(Request $request) {
         $item = Item::find($request->item_id);
-        return view("seller.show",compact('item'));
+        $stock_text="";
+        if ($item->is_show === 1 && $item->stock > 0){
+            $stock_text = "現在は表示中です！";
+        }else{
+            $stock_text = "現在は非表示です！";
+        }
+        return view("seller.show",compact('item','stock_text'));
     }
 
     public function edit($id){
@@ -70,9 +77,15 @@ class SellerItemController extends Controller
     }
 
     public function update(Request $request,$id){
-
+        // 1. バリデーション
+        $request->validate([
+            'photo_path' => 'required|image', // 画像ファイル必須
+        ]);
+        $photoPath = $request->file('photo_path')->store('public/item_images');
+        $photoPath = str_replace('public/', 'storage/', $photoPath); // assetヘルパーで使用できるパスに変換
         $item=Item::find($id);
         $item->name=$request->input("name");
+        $item->photo_Path = $photoPath;
         $item->description=$request->input("description");
         $item->price=$request->input("price");
         $item->category_id=$request->input("category_id");

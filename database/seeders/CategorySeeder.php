@@ -20,6 +20,8 @@ class CategorySeeder extends Seeder
             [ 'name' => '有線ヘッドホン' ],
             [ 'name' => 'ワイヤレススピーカー' ],
             [ 'name' => '有線スピーカー' ],
+            [ 'name' => 'サウンドバー'],
+            [ 'name' => 'マイク'],
         ]);
     }
 }
