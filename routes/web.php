@@ -37,7 +37,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/purchase', [PurchaseController::class, 'create'])->name('purchase.create');
     Route::get('/purchase-history', [PurchaseController::class, 'index'])->name('purchase.index');
-    Route::get('/purchase-history', [PurchaseController::class, 'search'])->name('purchase.search');
+    Route::get('/purchase-history/search', [PurchaseController::class, 'search'])
+    ->name('purchase.search');
 
     //支払い処理
     Route::get('/payment/', [PaymentController::class, 'checkout'])->name('payment.checkout');

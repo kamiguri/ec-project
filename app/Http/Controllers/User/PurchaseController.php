@@ -43,7 +43,17 @@ class PurchaseController extends Controller
 
     public function search(Request $request)
     {
-        
+        $keyword = $request->input("keyword");
+        $orders = [];
+        $user = Auth::user();
+        if (!empty($keyword)) {
+            $orders = Order::where("user_id",$user->id)
+                    ->whereHas("items", function($q) use ($keyword) {
+                    $q->where("name", "LIKE", "%{$keyword}%");
+                    })->get();
+        }
+
+        return view('user.purchase.index', compact('orders', 'keyword',"user"));
     }
 
 

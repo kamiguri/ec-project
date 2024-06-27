@@ -13,12 +13,7 @@
                     @csrf
                     <button type="submit">検索</button>
                     <input type="search" name="keyword" value="">
-                    <select name="keyword1" id="keyword1">
-                        <option value="null">カテゴリー未選択</option>
-                        @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
-                    </select>
+
                     </form>
                     @if(!isset($searches))
                     @foreach ($orders as $order)
