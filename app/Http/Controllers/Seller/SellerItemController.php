@@ -77,6 +77,10 @@ class SellerItemController extends Controller
     }
 
     public function update(Request $request,$id){
+        // 1. バリデーション
+        $request->validate([
+            'photo_path' => 'required|image', // 画像ファイル必須
+        ]);
         $photoPath = $request->file('photo_path')->store('public/item_images');
         $photoPath = str_replace('public/', 'storage/', $photoPath); // assetヘルパーで使用できるパスに変換
         $item=Item::find($id);
