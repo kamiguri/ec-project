@@ -21,7 +21,7 @@
                         <ul>
                             @foreach ($order->items as $item)
                                 <li>
-                                    <img src="{{ $item->photo_path }}" alt="{{ $item->name }}" style="width: 100px; height: 100px;">
+                                    <img src="{{ $item->photo_path }}" alt="{{ $item->name }}" style="height: 100px;">
                                     <a href="{{route('show',['item_id' => $item->id])}}"><h2>{{ $item->name }}</h2></a>
                                     <p>カテゴリー: {{ $item->category->name }}</p>
                                     <p>合計金額: ¥{{ $item->total_price }}</p>
