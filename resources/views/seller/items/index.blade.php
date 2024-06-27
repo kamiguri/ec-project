@@ -15,15 +15,52 @@
                             <div class="col-md-8">
                                 <div class="card">
                                     {{-- 商品名一覧 --}}
+                                    <form action="{{route('search')}}" method="get">
+                                        @csrf
+                                        <button type="submit">検索</button>
+                                        <input type="search" name="keyword" value="">
+                                        <select name="keyword1" id="keyword1">
+                                            <option value="null">カテゴリー未選択</option>
+                                            @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </form>
+                                    @if(!isset($searches))
                                     @foreach ($items as $item)
                                     <ul>
                                         <a href="{{route('seller.show',['item_id' => $item->id])}}">
-                                        <li><img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid" style="width: 150px; height: 150px;"></li>
+                                        <li><img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid" style="max-height: 200px;"></li>
                                         <li>{{$item->name}}</li>
-                                        <li>在庫数：{{$item->stock}}　価格{{$item->price}}</li><br>
+                                        <li>在庫数：{{$item->stock}}　価格{{$item->price}}</li>
+                                        <li>
+                                            @foreach ($categories as $category)
+                                            @if ($category->id === $item->category_id)
+                                            カテゴリー：{{$category->name}}
+                                            @endif
+                                            @endforeach
+                                        </li><br>
                                         </a>
                                     </ul>
                                     @endforeach
+                                    @else
+                                    @foreach ($searches as $search)
+                                    <ul>
+                                        <a href="{{route('seller.show',['item_id' => $search->id])}}">
+                                        <li><img src="{{ asset($search->photo_path) }}" alt="{{ $search->name }}" class="img-fluid" style="max-height: 200px;"></li>
+                                        <li>{{$search->name}}</li>
+                                        <li>在庫数：{{$search->stock}}　価格{{$search->price}}</li>
+                                        <li>
+                                            @foreach ($categories as $category)
+                                            @if ($category->id === $search->category_id)
+                                            カテゴリー：{{$category->name}}
+                                            @endif
+                                            @endforeach
+                                        </li><br>
+                                        </a>
+                                    </ul>
+                                    @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>

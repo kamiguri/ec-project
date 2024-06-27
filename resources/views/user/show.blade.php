@@ -16,7 +16,7 @@
                                     <div class="card-header">{{ $item->name }}</div>
                                     <div class="card-body">
                                         <img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}"
-                                            class="img-fluid" style="width: 150px; height: 150px;">
+                                            class="img-fluid" style="max-height: 200px;">
                                         <p>カテゴリー: {{ $item->category->name ?? '未設定' }}</p>
                                         <p>商品説明: {{ $item->description }}</p>
                                         <p>価格: {{ number_format($item->price) }}円</p>

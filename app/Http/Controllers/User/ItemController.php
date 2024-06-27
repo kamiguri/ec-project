@@ -110,7 +110,7 @@ class ItemController extends Controller
                 $i++;
             }
         }
-        $query->orderBy('created_at', 'desc');
+        $query->where('is_show', '>', '0')->orderBy('created_at', 'desc');
         $searches = $query->get();
         return view('user.index', compact('searches', 'items', 'id', 'categories'));
     }
