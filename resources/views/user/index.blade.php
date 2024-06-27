@@ -35,7 +35,7 @@
                     @foreach ($searches as $searche)
                     <ul>
                         <a href="{{route('show',['item_id' => $searche->id])}}">
-                        <li><img src="{{ asset($searche->photo_path) }}" alt="{{ $searche->name }}" class="img-fluid" style="width: 150px; height: 150px;"></li>
+                        <li><img src="{{ asset($searche->photo_path) }}" alt="{{ $searche->name }}" class="img-fluid" style="height: 150px;"></li>
                         <li>{{$searche->name}}</li>
                         <li>在庫数：{{$searche->stock}}　価格{{$searche->price}}</li><br>
                         </a>
