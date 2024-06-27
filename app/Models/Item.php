@@ -54,6 +54,11 @@ class Item extends Model
         return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+  
     public static function getMonthlySales($sellerId): Collection
     {
         $data = DB::select(<<<EOD
