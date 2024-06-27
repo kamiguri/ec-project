@@ -26,6 +26,7 @@ class ItemFactory extends Factory
             'description' => fake()->realText(),
             'price' => fake()->numberBetween(100, 100000),
             'stock' => fake()->numberBetween(10, 1000),
+            'is_show' => 0,
             'created_at' =>fake()->dateTime(),
             'updated_at' =>fake()->dateTime(),
         ];
