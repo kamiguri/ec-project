@@ -26,6 +26,7 @@
                                         {{$item->name}}
                                         在庫数：{{$item->stock}}　価格{{$item->price}}<br>
                                         <a href="{{route('seller.edit',['item_id' => $item->id])}}">編集</a>
+                                        <a href="{{route('seller.stock',['item_id' => $item->id])}}">在庫の更新</a>
                                     </div>
                                 </div>
                             </div>
