@@ -14,7 +14,8 @@ class SellerItemController extends Controller
     public function index()
     {
         $sellerId = Auth::user();
-        $query = Item::query()->where('seller_id', $sellerId->id);
+        $query = Item::query()->where('seller_id', $sellerId->id)->orderBy('created_at','desc');
+
         $items = $query->get();
         return view("seller.items.index",compact('items'));
     }
