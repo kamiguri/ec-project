@@ -41,8 +41,8 @@ class PurchaseController extends Controller
     {
         $keyword = $request->input("keyword");
         //  $orders = [];
-
         $user = Auth::user();
+        $searches= Order::where("user_id",$user->id)->get();
         if (!empty($keyword)) {
             $searches = Order::where("user_id",$user->id)
                     ->OrderBy("created_at","DESC")
