@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            商品詳細
+            {{ __('商品詳細') }}
         </h2>
     </x-slot>
 
@@ -15,7 +15,6 @@
                             <div class="col-md-8">
                                 <div class="card">
                                     <div class="card-header">{{ __('seller側の商品詳細画面です') }}</div>
-
                                     <div class="card-body">
                                         @if (session('status'))
                                             <div class="alert alert-success" role="alert">
@@ -23,10 +22,10 @@
                                             </div>
                                         @endif
                                         {{-- 商品詳細 --}}
-                                        <img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid">
+                                        <img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid" style="width: 150px; height: 150px;">
                                         {{$item->name}}
                                         在庫数：{{$item->stock}}　価格{{$item->price}}<br>
-                                        {{-- <a href="{{route('seller.edit',['item_id' => $item->id])}}"></a> --}}
+                                        <a href="{{route('seller.edit',['item_id' => $item->id])}}">編集</a>
                                     </div>
                                 </div>
                             </div>

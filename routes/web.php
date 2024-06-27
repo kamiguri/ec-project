@@ -40,8 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchase', [PurchaseController::class, 'create'])->name('purchase.create');
     Route::get('/purchase-history', [PurchaseController::class, 'index'])->name('purchase.index');
 
-    //支払い処理
-    Route::get('/payment/', [PaymentController::class, 'checkout'])->name('payment.checkout');
+    //メールの処理
+    Route::get('/payment', [PaymentController::class, 'checkout'])->name('payment.checkout');
     Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
 });
 

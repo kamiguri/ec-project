@@ -8,7 +8,6 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage; // ファイル保存に必要
-use App\Models\Seller;
 
 class SellerItemController extends Controller
 {
@@ -77,6 +76,7 @@ class SellerItemController extends Controller
         $item->description=$request->input("description");
         $item->price=$request->input("price");
         $item->category_id=$request->input("category_id");
+        $item->is_show = $request->input('is_show');
         $item->save();
         return redirect()->route('seller.show', $id);
     }
@@ -92,7 +92,20 @@ class SellerItemController extends Controller
         $item=Item::find($id);
         $item->stock=$request->input("stock");
         $item->save();
-         return view("seller.stock",compact("item"));
+        return view("seller.stock",compact("item"));
+    }
+
+    public function analysis()
+    {
+        $monthlyData = Item::getMonthlySales(Auth::id());
+        $monthlySalesData = $monthlyData->pluck('sales')->toArray();
+        $monthLabels = $monthlyData->pluck('month')->toArray();
+
+        $dailyData = Item::getDailySales(Auth::id());
+        $dailySalesData = $dailyData->pluck('sales')->toArray();
+        $dateLabels = $dailyData->pluck('date')->toArray();
+
+        return view('seller.analysis', compact('monthlySalesData', 'monthLabels', 'dailySalesData', 'dateLabels'));
 
     }
 }
