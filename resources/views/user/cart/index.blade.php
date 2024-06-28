@@ -16,7 +16,7 @@
                         </div>
                         <div class="mb-5">
                             <a href="{{ route('purchase.create') }}">
-                                <x-primary-button class="w-full" type="button">
+                                <x-primary-button class="justify-center w-full" type="button">
                                     {{ __('レジに進む') }}
                                 </x-primary-button>
                             </a>
