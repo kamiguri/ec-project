@@ -25,10 +25,10 @@ class SendSellerOrderConfirmationEmail implements ShouldQueue
 
     public function handle(): void
     {
-        Log::info('Sending seller order confirmation email...');
-        // orderItems をループして、それぞれの item の seller にメールを送信
-        foreach ($this->order->items as $item) {
-            Mail::to($item->seller->email)->send(new SellerOrderConfirmationEmail($this->order));
+        $bySeller = $this->order->items->groupBy('seller_id');
+        foreach ($bySeller as $itemsBySeller) {
+            $email = $itemsBySeller->first()->seller->email;
+            Mail::to($email)->send(new SellerOrderConfirmationEmail($this->order, $itemsBySeller));
         }
     }
 }

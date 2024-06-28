@@ -13,12 +13,10 @@ class SellerOrderConfirmationEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $order;
-
-    public function __construct($order)
-    {
-        $this->order = $order;
-    }
+    public function __construct(
+        public $order,
+        public $items
+    ) {}
 
     public function envelope(): Envelope
     {
