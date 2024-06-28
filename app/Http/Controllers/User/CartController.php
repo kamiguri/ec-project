@@ -15,7 +15,12 @@ class CartController extends Controller
 {
     public function index()
     {
-        return view('user.cart.index');
+        $totalPrice = 0;
+        $cartItems = Auth::user()->cartItems;
+        foreach ($cartItems as $item) {
+            $totalPrice += $item->price * $item->pivot->amount;
+        }
+        return view('user.cart.index', compact('cartItems', 'totalPrice'));
     }
 
     public function store(StoreCartRequest $request, $item_id)
