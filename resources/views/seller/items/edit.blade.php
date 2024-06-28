@@ -8,50 +8,72 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <div class="container">
-                        <form action="/seller/item/{{$item->id}}/edit" method="post" enctype="multipart/form-data">
+                    <div class="container mx-auto">
+                        <form action="/seller/item/{{ $item->id }}/edit" method="post" enctype="multipart/form-data"
+                            class="space-y-6">
                             @csrf
-                            <div class="form-group">
-                                <label for="name">商品名</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{old("name",$item->name)}}">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700">商品名</label>
+                                <input type="text"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    id="name" name="name" value="{{ old('name', $item->name) }}">
                             </div>
 
-                            <div class="form-group">
-                                <label for="photo_path">写真</label>
+                            <div>
+                                <label for="photo_path" class="block text-sm font-medium text-gray-700">写真</label>
                                 @if ($item->photo_path)
-                                    <div>
-                                        <img src="{{ asset($item->photo_path) }}" alt="Current Photo" style="max-height: 200px;">
+                                    <div class="mt-2">
+                                        <img src="{{ asset($item->photo_path) }}" alt="Current Photo"
+                                            class="rounded-lg shadow-md h-64 object-cover">
                                     </div>
                                 @endif
-                                <input type="file" class="form-control-file" id="photo_path" name="photo_path">
+                                <input type="file"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    id="photo_path" name="photo_path">
                             </div>
-                            <div class="form-group">
-                                <label for="description">商品説明</label>
-                                <textarea class="form-control" id="description" name="description">{{old("description",$item->description)}}</textarea>
+
+                            <div>
+                                <label for="description" class="block text-sm font-medium text-gray-700">商品説明</label>
+                                <textarea
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    id="description" name="description">{{ old('description', $item->description) }}</textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="price">価格</label>
-                                <input type="number" class="form-control" id="price" name="price" value="{{old("price",$item->price)}}">
+
+                            <div>
+                                <label for="price" class="block text-sm font-medium text-gray-700">価格</label>
+                                <input type="number"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    id="price" name="price" value="{{ old('price', $item->price) }}">
                             </div>
-                            <div class="form-group">
-                                <label for="category">カテゴリー</label>
-                                <select class="form-control" id="category" name="category_id" required>
+
+                            <div>
+                                <label for="category" class="block text-sm font-medium text-gray-700">カテゴリー</label>
+                                <select
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    id="category" name="category_id" required>
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}" @selected(old("category") == $category->name)>
+                                        <option value="{{ $category->id }}" @selected(old('category') == $category->name)>
                                             {{ $category->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
+
                             <div>
-                                <label for="is_show">商品の表示選択</label>
-                                <select name="is_show" id="is_show">
+                                <label for="is_show" class="block text-sm font-medium text-gray-700">商品の表示選択</label>
+                                <select name="is_show" id="is_show"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                     <option value="1" {{ $item->is_show == 1 ? 'selected' : '' }}>表示</option>
                                     <option value="0" {{ $item->is_show == 0 ? 'selected' : '' }}>非表示</option>
                                 </select>
                             </div>
-                            <a href="{{ route('seller.show',$item->id) }}">戻る</a>
-                            <button type="submit">更新</button>
+
+                            <div class="flex justify-end">
+                                <a href="{{ route('seller.show', $item->id) }}"
+                                    class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-3">戻る</a>
+                                <button type="submit"
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">更新</button>
+                            </div>
                         </form>
                     </div>
                 </div>
