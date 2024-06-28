@@ -27,7 +27,7 @@ Route::middleware(['auth:sellers', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/analysis', [SellerItemController::class, 'analysis'])->name('analysis');
-
+    Route::get('/search', [SellerItemController::class, 'search'])->name('search');
 });
 
     // ...他のseller側の商品管理ルート...

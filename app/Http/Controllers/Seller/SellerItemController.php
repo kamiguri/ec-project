@@ -183,6 +183,6 @@ class SellerItemController extends Controller
         }
         $query->orderBy('created_at', 'desc');
         $searches = $query->get();
-        return view('user.index', compact('searches', 'items', 'id', 'categories'));
+        return view('seller.items.index', compact('searches', 'items', 'id', 'categories'));
     }
 }

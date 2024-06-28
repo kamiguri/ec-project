@@ -15,7 +15,7 @@
                             <div class="w-full md:w-3/4 lg:w-1/2">
                                 <div class="bg-white shadow-md rounded-lg p-6">
                                     {{-- 商品名一覧 --}}
-                                    <form action="{{ route('search') }}" method="get" class="mb-4">
+                                    <form action="{{ route('seller.search') }}" method="get" class="mb-4">
                                         @csrf
                                         <button type="submit"
                                             class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">検索</button>
