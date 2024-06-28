@@ -33,7 +33,7 @@
                                                 class="inline-block">
                                                 @csrf
                                                 <label class="mr-2">数量:</label>
-                                                <select name="amount" class="border rounded py-1 px-2">
+                                                <select name="amount" class="border rounded">
                                                     @for ($i = 1; $i <= 5; $i++)
                                                         <option value="{{ $i }}">{{ $i }}</option>
                                                     @endfor
