@@ -15,7 +15,7 @@ class PurchaseController extends Controller
         $user = Auth::user();
 
         //ユーザーの注文とそれに関連するアイテムを取得
-        $orders = $user->orders()->with(['items.category'])->get();
+        $orders = $user->orders()->with(['items.category'])->orderBy('created_at', 'desc')->get();
         foreach ($orders as $order) {
             foreach ($order->items as $item) {
                 $item->total_price = ceil(($item->pivot->price * $item->pivot->amount) * 1.1);
