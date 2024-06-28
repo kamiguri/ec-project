@@ -20,8 +20,7 @@ class ItemController extends Controller
         $user = Auth::user();
         $query = Item::query();
         $categories = Category::all();
-        $query->where('is_show','1')->where('stock','>','0');
-        $query->orderBy('created_at', 'desc');
+        $query->where('is_show','1')->where('stock','>','0')->orderBy('created_at', 'desc');
         $items = $query->get();
         return view('user.index', compact('items', 'user', 'categories'));
     }
