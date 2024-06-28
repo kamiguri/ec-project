@@ -38,6 +38,7 @@
                     @else
                         <ul>
                         @foreach ($searches as $searche)
+                        <br><br>
                         注文日時:{{$searche->created_at}}
                             @foreach($searche->items as $item)
                             @if(str_contains($item->name,$keyword))
