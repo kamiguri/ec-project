@@ -9,30 +9,37 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    @php
-                        $cartItems = Auth::user()->cartItems; // ユーザーのカートアイテムを取得
-                    @endphp
-
                     @if ($cartItems->isNotEmpty())
                         <div>
                             <a href="{{ route('cart.index') }}">
-                                <button>カートに戻る</button>
+                                <x-secondary-button>
+                                    {{ __('カートに戻る') }}
+                                </x-secondary-button>
                             </a>
                         </div>
-                        <h1>注文の確認</h1>
-                        <div>
-                            合計金額: {{ $totalPrice }}
+                        <div class="my-5">
+                            <p class="text-lg font-bold">ご請求額: ¥
+                                {{ number_format($totalPrice) }}
+                            </p>
                         </div>
                         @foreach ($cartItems as $item)
-                            <div>
-                                商品名: {{ $item->name }}
-                                金額: {{ $item->price }}
-                                数量: {{ $item->pivot->amount }}
+                            <div class="mb-5 bg-gray">
+                                <a href="{{ route('show', $item->id) }}">
+                                    <p class="text-lg">{{ $item->name }}</p>
+                                    <div>
+                                        <img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid"
+                                            style="max-height: 100px;">
+                                    </div>
+                                </a>
+                                <p>¥<span class="text-md font-semibold">{{ number_format($item->price) }}</span></p>
+                                <p>数量: {{ $item->pivot->amount }}</p>
                             </div>
                         @endforeach
-                        <div>
+                        <div class="my-5">
                             <a href="{{ route('payment.checkout') }}">
-                                <button>支払いに進む</button>
+                                <x-primary-button>
+                                    {{ __('支払いに進む') }}
+                                </x-primary-button>
                             </a>
                         </div>
                     @else
