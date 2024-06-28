@@ -6,7 +6,6 @@
     </x-slot>
     <head>
         @vite(['resources/css/user_index.css'])
-        {{-- <link rel="stylesheet" href="{{ asset('css/user_index.css') }}"> --}}
     </head>
 
     <body>
