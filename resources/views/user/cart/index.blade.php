@@ -9,7 +9,11 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     @if ($cartItems->isNotEmpty())
-                        <div>合計 ¥{{ number_format($totalPrice) }}</div>
+                        <div>
+                            <p>合計 ¥
+                                <span class="text-lg font-semibold">{{ number_format($totalPrice) }}</span>
+                            </p>
+                        </div>
                         <div>
                             <a href="{{ route('purchase.create') }}">
                                 <button>レジに進む</button>
@@ -24,7 +28,7 @@
                                 <li>商品名: {{ $item->name }}</li>
                                 <li><img src="{{ asset($item->photo_path) }}" alt="{{ $item->name }}" class="img-fluid"
                                         style="max-height: 200px;"></li>
-                                <li>価格: ¥{{ number_format($item->price) }}</li>
+                                <li>価格: ¥<span class="text-lg font-semibold">{{ number_format($item->price) }}</span></li>
                                 <li>在庫数: {{ $item->stock }}</li>
                             </ul>
                             <form action="{{ route('cart.update', $item->id) }}" method="POST">
