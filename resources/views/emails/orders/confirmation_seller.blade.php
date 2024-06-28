@@ -1,4 +1,4 @@
-<h1>{{ $order->items[0]->seller->name }}様</h1>
+<h1>{{ $items->first()->seller->name }}様</h1>
 <h2>新規注文のお知らせ</h2>
 <p>{{ $order->user->name }}様からご注文がありました。</p>
 
@@ -11,7 +11,13 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($order->items as $item)
+        @php
+            $totalPrice = 0;
+        @endphp
+        @foreach ($items as $item)
+            @php
+                $totalPrice += $item->pivot->amount * $item->pivot->price;
+            @endphp
             <tr>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->pivot->amount }}</td>
@@ -21,6 +27,6 @@
     </tbody>
 </table>
 
-<p>合計金額: {{ $order->items->sum('pivot.price') }}円</p>
+<p>合計金額: {{ $totalPrice }}円</p>
 
 <p>詳細は管理画面をご確認ください。</p>
