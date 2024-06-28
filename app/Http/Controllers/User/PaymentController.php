@@ -85,7 +85,7 @@ class PaymentController extends Controller
         }
 
         SendUserOrderConfirmationEmail::dispatch($order);
-        SendSellerOrderConfirmationEmail::dispatch($order, $user);
+        SendSellerOrderConfirmationEmail::dispatch($order);
         return redirect()->route('index');
     }
 }
